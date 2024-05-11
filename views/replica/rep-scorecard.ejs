@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CricWWW - Scorecard</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+  </head>
+  <body>
+   
+   
+    <div class="main" style="overflow-y: hidden;">
+
+      <div class="overlay" style="position: fixed; display: none;">
+       <li><a href="/"><i class="ri-home-5-fill active"></i></a><span>Home</span></li>
+       <li><a href="/cric-fixture"><i class="ri-calendar-fill"></i></a><span>Fixtures</span></li>
+       <li><a href="/cric-stats-corner"><i class="ri-bar-chart-2-fill"></i></a><span>Stats</span></li>
+       <li><a href="/cric-ranking"><i class="ri-trophy-fill"></i></a><span>Ranking</span></li>
+       <li><a href="/cric-prediction"><i class="ri-bubble-chart-fill"></i></a><span>Prediction</span></li>
+      </div>
+
+      <nav class="navbar bg-dark border-bottom border-body fixed-top" data-bs-theme="dark">
+        <div class="nav-logo">
+          <div class="logo mainLogo"><img style="object-fit: contain !important;" src="/images/LOGO.png" alt="logo"></div>
+          <a href="/" style="text-decoration: none;"> <span id="mainicon" style="font-size: 1.5vw;">CRIC<span style="color: #EE9B6A;">WWW</span></span></a>
+        </div>
+
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/cric-home">Home</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Series</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="/cric-fixture">Fixtures</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/cric-stats-corner">Stats Corner</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/cric-ranking">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/cric-prediction">Prediction</a>
+          </li>
+          <% if(!user) {  %> 
+            <li class="nav-item">
+              <a class="nav-link " href="/cric-login">Login</a>
+            </li>
+          <% } else {  %> 
+            <li class="nav-item">
+              <a class="nav-link " href="/cric-logout">Logout</a>
+            </li>
+          <% } %>
+        </ul>
+      </nav>
+
+
+      
+
+<meta name="description" content="Read insightful cricket match predictions and analysis by experts on Who Will Win's blog. Stay informed with detailed forecasts and in-depth commentary on upcoming games.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+    @media only screen and (max-width: 900px) {
+    .blog-fullPage {
+    margin-top: 5vw;
+    }
+    .blog-area{
+      overflow-x: hidden;
+    }
+    }
+</style>
+<div class="blog-fullPage">
+    <div class="blog-area cw-score">
+
+     <div class="first-inn" style="position: relative;">
+      <div class="fs-team" style="width: 100%; background-color: #343A40; color: #fff; display: flex; justify-content: center !important; align-items: center;">
+        <% if (scoreData.firstInnings) { %>
+           <div class="name cw-name" style="font-size: 1.4vw; padding: 10px; justify-content: center;"><%= scoreData.firstInnings %></div>
+        <% } else { %>
+         <div class="name"></div>
+        <% } %>
+      </div>
+        <table class="table table-cw">
+            <thead class="table-secondary">
+                <tr>
+                  <th scope="col" style="width: 100%;" class="cw-ft">Batter</th>
+                  <th scope="col" class="cw-ft">R</th>
+                  <th scope="col" class="cw-ft">B</th>
+                  <th scope="col" class="cw-ft">4s</th>
+                  <th scope="col" class="cw-ft">6s</th>
+                  <th scope="col" class="cw-ft">SR</th>
+                </tr>
+              </thead>
+            <tbody>
+
+         
+                <% if (scoreData.innings1Data && scoreData.innings1Data.length > 0) { %>
+                    <% scoreData.innings1Data.forEach((score) => { %>
+                        <tr>
+                            <th scope="col" class="cw-ft" style="display: flex; flex-direction: column;">
+                              <span style="color: #000;"><%= score.playerName %> </span>
+                              <span style="color: gray;" class="dismissal"><%= score.dismissal %></span>
+                            </th>
+                            <th scope="col" class="cw-ft"><%= score.runs %></th>
+                            <th scope="col" class="cw-ft"><%= score.balls %></th>
+                            <th scope="col" class="cw-ft"><%= score.fours %></th>
+                            <th scope="col" class="cw-ft"><%= score.sixes %></th>
+                            <th scope="col" class="cw-ft"><%= score.strikeRate %></th>
+                        </tr>
+                    <% }) %>
+
+                    <div class="fs-team" style="width: 100%; background-color: #1878d8; color: #fff; display: flex; justify-content: center; gap: 20px; align-items: center; padding: 10px;">
+                       <div class="dnb-txt" style="font-weight: bold;">Did Not Bat</div>
+                      <% if(scoreData.innings1Data[0]) { %>                      
+                        <div class="dnb"><%= scoreData.innings1Data[0].didNotBat %></div>
+                      <%}%> 
+                    </div>
+                <% } %>
+            
+            
+                
+            </tbody>
+          </table>
+     </div>
+        
+     <hr>
+     
+ <%if(scoreData.innings2Data && scoreData.innings2Data.length > 0) { %> 
+ 
+  <div class="first-inn next-inn" style="position: relative;">
+    <div class="fs-team" style="width: 100%; background-color: #343A40; color: #fff; display: flex; justify-content: center !important; align-items: center;">
+      <% if (scoreData.secondInnings) { %>
+         <div class="name cw-name" style="font-size: 1.4vw; padding: 10px; justify-content: center;"><%= scoreData.secondInnings %></div>
+      <% } else { %>
+       <div class="name"></div>
+      <% } %>
+    </div>
+      <table class="table table-cw">
+          <thead class="table-secondary">
+              <tr>
+                <th scope="col" style="width: 100%;" class="cw-ft">Batter</th>
+                <th scope="col" class="cw-ft">R</th>
+                <th scope="col" class="cw-ft">B</th>
+                <th scope="col" class="cw-ft">4s</th>
+                <th scope="col" class="cw-ft">6s</th>
+                <th scope="col" class="cw-ft">SR</th>
+              </tr>
+            </thead>
+          <tbody>
+
+       
+              <% if (scoreData.innings2Data && scoreData.innings2Data.length > 0) { %>
+                  <% scoreData.innings1Data.forEach((score) => { %>
+                      <tr>
+                          <th scope="col" class="cw-ft" style="display: flex; flex-direction: column;">
+                            <span style="color: #000;"><%= score.playerName %> </span>
+                            <span style="color: gray;" class="dismissal"><%= score.dismissal %></span>
+                          </th>
+                          <th scope="col" class="cw-ft"><%= score.runs %></th>
+                          <th scope="col" class="cw-ft"><%= score.balls %></th>
+                          <th scope="col" class="cw-ft"><%= score.fours %></th>
+                          <th scope="col" class="cw-ft"><%= score.sixes %></th>
+                          <th scope="col" class="cw-ft"><%= score.strikeRate %></th>
+                      </tr>
+                  <% }) %>
+
+                  <div class="fs-team" style="width: 100%; background-color: #1878d8; color: #fff; display: flex; justify-content: center; gap: 20px; align-items: center; padding: 10px;">
+                     <div class="dnb-txt" style="font-weight: bold;">Did Not Bat</div>
+                    <% if(scoreData.innings2Data[0]) { %>                      
+                      <div class="dnb"><%= scoreData.innings2Data[0].didNotBat %></div>
+                    <%}%> 
+                  </div>
+              <% } %>
+          
+          
+              
+          </tbody>
+        </table>
+   </div>
+  
+ <%}%>
+        
+    </div>
+
+    <div class="recent-blog">
+    <div class="headline" style="margin-top: 6vw;"><h3>Recent Stories</h3></div>
+
+    <div class="other-blogs">
+
+        
+        <% recentBlog.slice(Math.max(recentBlog.length - 3, 0)).forEach((item) => { %>
+            <div class="card-horizontal">
+                <div class="card-img"><img src="<%= item.attributes.imgUrl %>" alt=""></div>
+                <div class="text">
+                    <div class="subText" style="font-weight: bold;"><a href="/cric-blog/<%=item.id%>" style="color: #000 !important;"><%= item.attributes.Title.length > 55 ? item.attributes.Title.substring(0, 55) + "..." : item.attributes.Title %></a></div>
+                    <div class="s-desc"><%= item.attributes.description.substring(0, 40) + "..." %></div>
+                    
+                </div>
+            </div>
+        <% }) %>
+
+    
+
+    </div>
+    </div>
+</div>
+
+   
+ 
+    <script src="/javascripts/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<meta name="description" content="Explore the latest cricket rankings across all formats on Who Will Win. Stay updated with expert predictions and analysis for today's matches.">
+<title>CricWWW - Ranking</title>
+<%- include('partials/top-partials.ejs') %>
+
+<style>
+  .main{
+    overflow: hidden !important;
+  }
+  .top {
+    width: 100%;
+    height: 20vw;
+    background: linear-gradient(128deg, rgba(10, 0, 180, 1) 0%, rgba(9, 9, 121, 1) 42%, rgba(0, 112, 135, 1) 100%) !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5vw;
+    color: #fff;
+  }
+
+  .ranking {
+    width: 40%;
+    height: 100%;
+    display: flex;
+  }
+  .first-rank:nth-child(1) {
+    width: 40%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    top: 20%;
+  }
+  .first-rank:nth-child(2) {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .first-rank > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .rk {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vw;
+  }
+  #rankmenu {
+    display: flex;
+    width: 100%;
+    margin-left: 5vw;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+  #t20team {
+    cursor: pointer;
+  }
+  #oditeam {
+    cursor: pointer;
+  }
+  #testteam {
+    cursor: pointer;
+  }
+  @media only screen and (max-width: 900px) {
+    body{
+      overflow-x: hidden !important;
+    }
+    #testteam{
+      padding-right: 8vw !important;
+    }
+    td{
+      font-size: 3vw !important;
+    }
+    .playerName{
+      font-size: 3vw !important;
+    }
+    th{
+      font-size: 3vw !important;
+    }
+  }
+</style>
+<div class="blog-fullPage" style="display: flex; flex-direction: column">
+  <div class="top">
+    <div
+      class="box"
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 60%;
+      "
+    >
+      <h2 id="statsHeading">Most Runs In T20 International</h2>
+      <span
+        id="rankmenu"
+        style="
+          display: flex;
+          width: 80%;
+          justify-content: space-between;
+          align-items: center;
+          list-style: none;
+        "
+      >
+        <li id="t20">T20</li>
+        <li id="odi">ODI</li>
+        <li id="test">TEST</li>
+        <li id="t20team">T20&nbsp;TEAM</li>
+        <li id="oditeam">ODI&nbsp;TEAM</li>
+        <li id="testteam">TEST&nbsp;TEAM</li>
+      </span>
+    </div>
+    <div class="ranking">
+      <div class="first-rank">
+        <img
+          style="object-fit: contain !important"
+          src="/images/pngwing.com.png"
+          alt=""
+        />
+      </div>
+      <div class="first-rank">
+        <img
+          style="object-fit: contain !important"
+          src="/images/—Pngtree—icc cricket world cup motion_6544120.png"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom" id="t20Stats" style="display: initial">
+    <table class="table" id="rankTable">
+      <thead>
+        <tr>
+          <th scope="col">NO.</th>
+          <th scope="col" class="rankRowP">Player</th>
+          <th scope="col">Team</th>
+          <th scope="col">Runs</th>
+          <th scope="col" id="rankCareer">Career best</th>
+          <th scope="col" id="rankDate">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% batRanking.splice(0, 25).forEach((rank) => { %>
+        <tr>
+          <th scope="row"><%= rank.no %></th>
+          <td>
+            <a
+              class="playerName"
+              target="_blank"
+              style="color: #000 !important; font-weight: bold; text-decoration: none;"
+              href="#"
+              ><%= rank['Player-name'] %></a
+            >
+          </td>
+          <td><%= rank['Country_name'] %></td>
+          <td style="font-weight: bold"><%= rank['Points'] %></td>
+          <td><%= rank['careerbest'] %></td>
+          <td><%= rank.rankdate %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bottom" id="odiStats" style="display: none">
+    <table class="table" id="rankTable">
+      <thead>
+        <tr>
+          <th scope="col">NO.</th>
+          <th scope="col">Player</th>
+          <th scope="col">Team</th>
+          <th scope="col">Runs</th>
+          <th scope="col">Career best</th>
+          <th scope="col">Rank date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% odiRanking.splice(0, 25).forEach((rank) => { %>
+        <tr>
+          <th scope="row"><%= rank.no %></th>
+          <td>
+            <a
+              class="playerName"
+              target="_blank"
+              style="color: #000 !important; font-weight: bold; text-decoration: none;"
+              href="#%>"
+              ><%= rank['Player-name'] %></a
+            >
+          </td>
+          <td><%= rank['Country_name'] %></td>
+          <td style="font-weight: bold"><%= rank['Points'] %></td>
+          <td><%= rank['careerbest'] %></td>
+          <td><%= rank.rankdate %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bottom" id="testStats" style="display: none">
+    <table class="table" id="rankTable">
+      <thead>
+        <tr>
+          <th scope="col">NO.</th>
+          <th scope="col">Player</th>
+          <th scope="col">Team</th>
+          <th scope="col">Runs</th>
+          <th scope="col">Career best</th>
+          <th scope="col">Rank date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% testRanking.splice(0, 25).forEach((rank) => { %>
+        <tr>
+          <th scope="row"><%= rank.no %></th>
+          <td>
+            <a
+              class="playerName"
+              target="_blank"
+              style="color: #000 !important; font-weight: bold; text-decoration: none;"
+              href="#"
+              ><%= rank['Player-name'] %></a
+            >
+          </td>
+          <td><%= rank['Country_name'] %></td>
+          <td style="font-weight: bold"><%= rank['Points'] %></td>
+          <td><%= rank['careerbest'] %></td>
+          <td><%= rank.rankdate %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bottom" id="t20TeamDisplay" style="display: none">
+    <table class="table" id="rankTable">
+      <thead>
+        <tr>
+          <th scope="col">NO.</th>
+          <th scope="col">Country</th>
+          <th scope="col">Team</th>
+          <th scope="col">Points</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Matches</th>
+          <th scope="col">Rank date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% t20teamRanking.splice(0, 25).forEach((rank) => { %>
+        <tr>
+          <th scope="row"><%= rank.no %></th>
+          <td>
+            <a
+              class="playerName"
+              target="_blank"
+              style="color: #000 !important; font-weight: bold; text-decoration: none;"
+              href="#"
+              ><%= rank.Country %></a
+            >
+          </td>
+          <td><%= rank['shortname'] %></td>
+          <td style="font-weight: bold"><%= rank['Points'] %></td>
+          <td><%= rank['Rating'] %></td>
+          <td><%= rank['Matches'] %></td>
+          <td><%= rank.rankdate %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bottom" id="testTeamDisplay" style="display: none">
+    <table class="table" id="rankTable">
+      <thead>
+        <tr>
+          <th scope="col">NO.</th>
+          <th scope="col">Country</th>
+          <th scope="col">Team</th>
+          <th scope="col">Points</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Matches</th>
+          <th scope="col">Rank date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% testteamRanking.splice(0, 25).forEach((rank) => { %>
+        <tr>
+          <th scope="row"><%= rank.no %></th>
+          <td>
+            <a
+              class="playerName"
+              target="_blank"
+              style="color: #000 !important; font-weight: bold; text-decoration: none;"
+              href="#"
+              ><%= rank.Country %></a
+            >
+          </td>
+          <td><%= rank['shortname'] %></td>
+          <td style="font-weight: bold"><%= rank['Points'] %></td>
+          <td><%= rank['Rating'] %></td>
+          <td><%= rank['Matches'] %></td>
+          <td><%= rank.rankdate %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <div class="bottom" id="odiTeamDisplay" style="display: none">
+    <table class="table" id="rankTable">
+      <thead>
+        <tr>
+          <th scope="col">NO.</th>
+          <th scope="col">Country</th>
+          <th scope="col">Team</th>
+          <th scope="col">Points</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Matches</th>
+          <th scope="col">Rank date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% oditeamRanking.splice(0, 25).forEach((rank) => { %>
+        <tr>
+          <th scope="row"><%= rank.no %></th>
+          <td>
+            <a
+            class="playerName"
+              target="_blank"
+              style="color: #000 !important; font-weight: bold; text-decoration: none;"
+              href="#"
+              ><%= rank.Country %></a
+            >
+          </td>
+          <td><%= rank['shortname'] %></td>
+          <td style="font-weight: bold"><%= rank['Points'] %></td>
+          <td><%= rank['Rating'] %></td>
+          <td><%= rank['Matches'] %></td>
+          <td><%= rank.rankdate %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+ 
+  <script>
+
+    var homeButton = document.getElementById('homeNav');
+    
+    homeButton.addEventListener("click", function(){
+      console.log("CLIKED")
+      document.querySelector('.loading-spinner').style.display = 'block';  
+      document.querySelector('#b-login').style.display = 'none'; 
+      document.querySelector('.lock-icon>i ').style.display = 'none';  
+      
+    })
+    
+     window.addEventListener('load', function() {
+      // Page has finished loading, hide the loading spinner
+      document.querySelector('.loading-spinner').style.display = 'none';  
+    });
+    </script>
+<script>
+    //buttons
+  var t20Btn = document.querySelector("#t20");
+  var odiBtn = document.querySelector("#odi");
+  var testBtn = document.querySelector("#test");
+  var t20team = document.querySelector("#t20team");
+  var oditeam = document.querySelector("#oditeam");
+  var testteam = document.querySelector("#testteam");
+
+  //display
+  var t20Display = document.querySelector("#t20Stats");
+  var odiDisplay = document.querySelector("#odiStats");
+  var testDisplay = document.querySelector("#testStats");
+  var t20TeamDisplay = document.querySelector("#t20TeamDisplay");
+  var odiTeamDisplay = document.querySelector("#odiTeamDisplay");
+  var testTeamDisplay = document.querySelector("#testTeamDisplay");
+
+  var heading = document.querySelector("#statsHeading");
+
+  function pressT20(){
+    //buttons
+    t20Btn.style.borderBottom = "2px solid #fff";
+    odiBtn.style.borderBottom = "none";
+    testBtn.style.borderBottom = "none";
+    t20team.style.borderBottom = "none";
+    oditeam.style.borderBottom = "none";
+    testteam.style.borderBottom = "none";
+
+    // display
+    t20Display.style.display = "initial";
+    testDisplay.style.display = "none;";
+    odiDisplay.style.display = "none";
+    odiTeamDisplay.style.display = "none";
+    t20TeamDisplay.style.display = "none";
+    testTeamDisplay.style.display = "none";
+    //heading
+    heading.innerHTML = "Most Runs In T20 International";
+  }
+  function pressODI(){
+    //buttons
+    odiBtn.style.borderBottom = "2px solid #fff";
+    t20Btn.style.borderBottom = "none";
+    testBtn.style.borderBottom = "none";
+    t20team.style.borderBottom = "none";
+    oditeam.style.borderBottom = "none";
+    testteam.style.borderBottom = "none";
+
+    // display
+    odiDisplay.style.display = "initial";
+    t20Display.style.display = "none";
+    testDisplay.style.display = "none;";
+    odiTeamDisplay.style.display = "none";
+    t20TeamDisplay.style.display = "none";
+    testTeamDisplay.style.display = "none";
+    //heading
+    heading.innerHTML = "Most Runs In ODI International";
+  }
+  function pressTEST(){
+    //buttons
+    testBtn.style.borderBottom = "2px solid #fff";
+    odiBtn.style.borderBottom = "none";
+    t20Btn.style.borderBottom = "none";
+    t20team.style.borderBottom = "none";
+    oditeam.style.borderBottom = "none";
+    testteam.style.borderBottom = "none";
+
+    // display
+    testDisplay.style.display = "initial";
+    odiDisplay.style.display = "none";
+    t20Display.style.display = "none";
+    odiTeamDisplay.style.display = "none";
+    t20TeamDisplay.style.display = "none";
+    testTeamDisplay.style.display = "none";
+    //heading
+    heading.innerHTML = "Most Runs In TEST International";
+  }
+  function pressT20TEAM(){
+    //buttons
+    t20team.style.borderBottom = "2px solid #fff";
+    testBtn.style.borderBottom = "none";
+    odiBtn.style.borderBottom = "none";
+    t20Btn.style.borderBottom = "none";
+    oditeam.style.borderBottom = "none";
+    testteam.style.borderBottom = "none";
+    // display
+    t20TeamDisplay.style.display = "initial";
+    testDisplay.style.display = "none";
+    console.log("PRessed")
+    odiDisplay.style.display = "none";
+    t20Display.style.display = "none";
+    odiTeamDisplay.style.display = "none";
+    testTeamDisplay.style.display = "none";
+    //heading
+   
+    heading.innerHTML = "Top T20 International Team";
+  }
+  function pressODITEAM(){
+    //buttons
+    oditeam.style.borderBottom = "2px solid #fff";
+    t20team.style.borderBottom = "none";
+    testBtn.style.borderBottom = "none";
+    odiBtn.style.borderBottom = "none";
+    t20Btn.style.borderBottom = "none";
+    testteam.style.borderBottom = "none";
+
+    // display
+    odiTeamDisplay.style.display = "initial";
+    t20TeamDisplay.style.display = "none";
+    testDisplay.style.display = "none";
+    odiDisplay.style.display = "none";
+    t20Display.style.display = "none";
+    testTeamDisplay.style.display = "none";
+    //heading
+    heading.innerHTML = "Top ODI International Team";
+  }
+  function pressTESTTEAM(){
+    //buttons
+    testteam.style.borderBottom = "2px solid #fff";
+    oditeam.style.borderBottom = "none";
+    t20team.style.borderBottom = "none";
+    testBtn.style.borderBottom = "none";
+    odiBtn.style.borderBottom = "none";
+    t20Btn.style.borderBottom = "none";
+
+    // display
+    testTeamDisplay.style.display = "initial";
+    odiTeamDisplay.style.display = "none";
+    t20TeamDisplay.style.display = "none";
+    testDisplay.style.display = "none";
+    odiDisplay.style.display = "none";
+    t20Display.style.display = "none";
+    //heading
+    heading.innerHTML = "Top TEST International Team";
+  }
+
+
+  //odi button
+  odiBtn.addEventListener("click", function () {
+   pressODI();
+  });
+
+  //test button
+  testBtn.addEventListener("click", function () {
+   pressTEST();
+  });
+
+  //test button
+  t20Btn.addEventListener("click", function () {
+   pressT20();
+  });
+
+  t20team.addEventListener("click", function () {
+  pressT20TEAM();
+  });
+
+  oditeam.addEventListener("click", function () {
+   pressODITEAM();
+  });
+  
+  testteam.addEventListener("click", function () {
+   pressTESTTEAM();
+  });
+</script>
+
+<%- include('partials/footer.ejs') %>

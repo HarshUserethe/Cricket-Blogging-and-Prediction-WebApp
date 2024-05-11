@@ -1,0 +1,165 @@
+<title>Prediction</title>
+<meta name="description" content="Get expert predictions and opinions for every IPL match on Who Will Win. Stay ahead with insightful analysis and forecasts for Indian Premier League games.">
+<link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+<%- include('partials/top-partials.ejs') %>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var expertBtn1 = document.getElementById("team1expert");
+    var expertBtn2 = document.getElementById("team2expert");
+    var mdl = document.querySelector(".mdl");
+    var closeTag = document.getElementById("closeTag");
+
+    expertBtn1.addEventListener("click", function(){
+        mdl.style.display = "initial";
+    });
+    
+    closeTag.addEventListener("click", function(){
+        mdl.style.display = "block";
+    });
+});
+
+</script>
+<div class="blog-fullPage" id="pbg" style="padding-top: 5vw; display: flex; flex-direction: column;">
+    <a href="/prediction">
+        <div class="back-icon">
+            <i class="ri-arrow-go-back-line"></i>
+        </div>
+       </a>
+    <%
+    // Map team names to image links
+    const Links = {
+        "KKR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/kkr_vryic9.jpg",
+            "PBKS": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/pbks_gqjclw.jpg",
+            "LSG": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/lsg_jdhwjt.jpg",
+            "GT": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/gt_ymrdg0.jpg",
+            "MI": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/mi_vj4a2v.jpg",
+            "RR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rr_s7vm3w.jpg",
+            "DC": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/dc_x5e4nu.jpg",
+            "RCB": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rcb_zcimbz.jpg",
+            "CSK": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/csk_umypzx.jpg",
+            "SRH": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/srh_qdnr6s.jpg",
+    };
+    
+    // Function to get image link for team
+    function getImageLink(teamName) {
+        return Links[teamName] || "https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg"; // Default link if team name not found
+    }
+    
+    recentMatches.forEach(match => {
+        comments.forEach(comment => {
+            if (match._id === comment.attributes.match_id) {
+    %>
+    <div class="todays-prediction" style="height: 100%; border-bottom: 1px solid #fff;">
+        <div class="head-tl" style="width: 100%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 2vw; padding: 10px;"></div>
+        <div class="other-content">
+            <div class="Tbox">
+                <% if(comment.attributes.Team1 === true){ %>
+                <div class="ww" style="width: 8vw; height: 8vw;"><img src="/images/trophy.png" alt=""></div>
+                <% } %>
+                <div class="franchise"><img src="<%= getImageLink(match.teams.t1.sName) %>" alt=""></div>
+                <div class="team-name"><%= match.teams.t1.sName %></div>
+            </div>
+            <div class="vs">
+                <!-- <div class="sign"><img src="images/vs.png" alt="vs"></div> -->
+                <div class="v-s">VS</div>
+                <div class="date"></div>
+                <div class="status"><%=match.matchSuffix %></div>
+                <div class="status"><%= match.result ? match.result.message : '' %></div> <!-- Check if match.result exists -->
+                <!-- <div class="opinion">Prediction:<%=comment.attributes.commentary %></div> -->
+                <div class="status"><span style="color: yellow;"><a class="status" href="/blog/<%=comment.attributes.com_id%>" style="color: yellow !important;">Prediction: </a></span><%= comment.attributes.commentary %></div>
+            </div>
+            <div class="Tbox">
+                <% if(comment.attributes.Team2 === true){ %>
+                <div class="ww" style="margin-left: -10vw !important; width: 5vw; height: 8vw;"><img src="/images/trophy.png" alt=""></div>
+                <% } %>
+                <div class="franchise"><img src="<%= getImageLink(match.teams.t2.sName) %>" alt=""></div>
+                <div class="team-name"><%= match.teams.t2.sName %></div>
+            </div>
+        </div>
+    </div>
+    <%
+            }
+        });
+    });
+    %>
+    
+    <div class="buttons-container">
+        <button id="predict-prev">Prev</button>
+        <button id="predict-next">Next</button>
+    </div>
+    <span style="color: red;" id="message"></span>
+    
+
+    
+    </div>
+    <script>
+
+        var homeButton = document.getElementById('homeNav');
+        
+        homeButton.addEventListener("click", function(){
+          console.log("CLIKED")
+          document.querySelector('.loading-spinner').style.display = 'block';  
+          document.querySelector('#b-login').style.display = 'none'; 
+          document.querySelector('.lock-icon>i ').style.display = 'none';  
+          
+        })
+        
+         window.addEventListener('load', function() {
+          // Page has finished loading, hide the loading spinner
+          document.querySelector('.loading-spinner').style.display = 'none'; 
+          document.querySelector('.lock-icon>i ').style.display = 'block';  
+          document.querySelector('#b-login ').style.display = 'block';  
+        });
+        </script>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var expertBtn1 = document.getElementById("team1expert");
+            var expertBtn2 = document.getElementById("team2expert");
+            var mdl = document.querySelector(".mdl");
+            var closeTag = document.getElementById("closeTag");
+        
+            
+            expertBtn2.addEventListener("click", function(){
+                mdl.style.display = "initial";
+            });
+        
+            
+            closeTag.addEventListener("click", function(){
+                mdl.style.display = "block";
+            });
+        });
+        
+
+        var prev = document.querySelector('#predict-prev');
+var next = document.querySelector('#predict-next');
+var msg = document.querySelector('#message');
+var maxPage = 2;
+
+// Get the current page number from the URL, or default to 0
+var pageNumber = parseInt(window.location.pathname.split('/')[2]) || 0;
+
+next.addEventListener('click', function(){
+    ++pageNumber;
+    if (pageNumber > maxPage) {
+        pageNumber = 0;
+    }
+    window.location.href = `/predict-data/${pageNumber}`
+})
+
+prev.addEventListener('click', function(){
+    if (pageNumber > 0) {
+        --pageNumber;
+        window.location.href = `/predict-data/${pageNumber}`
+    } else {
+        msg.textContent = 'Already in a current page'
+    }
+})
+        
+        
+        
+        </script>
+<%- include('partials/footer.ejs') %>

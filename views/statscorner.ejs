@@ -1,0 +1,158 @@
+<title>CricWWW - Stats Corner</title>
+<meta name="description" content="Stay updated with the latest IPL points table on Who Will Win. Get team standings, rankings, and match results for the Indian Premier League.">
+<%- include('partials/top-partials.ejs') %>
+
+<style>
+
+.blog-fullPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6vw;
+    gap: 25px;
+}
+.match-logo{
+    width:  4vw;
+    height: 4vw;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 2px;
+}
+.match-logo>img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+</style>
+<div class="blog-fullPage">
+
+     <!-- ipl points table -->
+     <div class="wpl-standings">
+        <div class="title-space" style=" border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+            <div class="match-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/1200px-Indian_Premier_League_Official_Logo.svg.png" alt="">
+            </div>
+            <h2>Indian Premier League Standings 2024</h2>
+        </div>
+       <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Team</th>
+            <th scope="col">Match</th>
+            <th scope="col">Win</th>
+            <th scope="col">Lose</th>
+            <!-- <th scope="col">Tie</th> -->
+            <th scope="col">Points</th>
+            <th scope="col">Last Five</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+            <!-- <tr>
+                <p style="color: maroon; font-weight: bold;">The Indian Premier League (IPL) 2024 season is scheduled to commence on March 22, 2024.<p>
+            </tr> -->
+            <% iplPoints.forEach((team, index) => { %>
+                <tr>
+                    <th scope="row" class="rw"><%= index+1 %></th>
+                    <td class="rw"><%= team.sName %></td>
+                    <td class="rw"><%= team.matches %></td>
+                    <td class="rw"><%= team.won %></td>
+                    <td class="rw"><%= team.lost %></td>
+                    <!-- <td class="rw"><%= team.tie %></td> -->
+                    <td class="rw"><%= team.pts %></td>
+            
+                        <td>
+                          
+                                <% team.lastFive.forEach(status => { %>
+                                    <% if (status === 'lost') { %>
+                                        <i style="color: red;" class="ri-close-circle-fill"></i>
+                                    <% } else { %>
+                                        <i style="color: green;" class="ri-checkbox-circle-fill"></i>
+                                    <% } %>
+                                <% }) %>
+                            
+                        </td>
+                  </tr>
+            <% }) %>
+          
+     
+        </tbody>
+      </table>
+    </div>
+
+    <!-- <div class="wpl-standings">
+       <div class="title-space" style=" border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+        <div class="match-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Women%27s_Premier_League.svg/800px-Women%27s_Premier_League.svg.png" alt="">
+        </div>
+        <h2>Women's Premier League Standings 2024</h2>
+    </div>
+       <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">NO.</th>
+            <th scope="col">Teams</th>
+            <th scope="col">Match</th>
+            <th scope="col">Win</th>
+            <th scope="col">Lose</th>
+            <th scope="col">Tie</th>
+            <th scope="col">Points</th>
+            <th scope="col">Last Five</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+            <% wplPoints.forEach((team, index) => { %>
+                <tr>
+                    <th scope="row" class="rw"><%= index+1 %></th>
+                    <td style="font-weight: bold;" class="rw"><%= team.sName %></td>
+                    <td class="rw"><%= team.matches %></td>
+                    <td class="rw"><%= team.won %></td>
+                    <td class="rw"><%= team.lost %></td>
+                    <td class="rw"><%= team.tie %></td>
+                    <td class="rw"><%= team.pts %></td>
+            
+                        <td>
+                          
+                                <% team.lastFive.forEach(status => { %>
+                                    <% if (status === 'lost') { %>
+                                        <i style="color: red;" class="ri-close-circle-fill"></i>
+                                    <% } else { %>
+                                        <i style="color: green;" class="ri-checkbox-circle-fill"></i>
+                                    <% } %>
+                                <% }) %>
+                            
+                        </td>
+                
+                   
+                    
+                  </tr>
+            <% }) %>
+          
+     
+        </tbody>
+      </table>
+    </div> -->
+
+</div>
+<script>
+
+    var homeButton = document.getElementById('homeNav');
+    
+    homeButton.addEventListener("click", function(){
+      console.log("CLIKED")
+      document.querySelector('.loading-spinner').style.display = 'block';  
+      document.querySelector('#b-login').style.display = 'none'; 
+      document.querySelector('.lock-icon>i ').style.display = 'none';  
+      
+    })
+    
+     window.addEventListener('load', function() {
+      // Page has finished loading, hide the loading spinner
+      document.querySelector('.loading-spinner').style.display = 'none';  
+    });
+    </script>
+<%- include('partials/footer.ejs') %>

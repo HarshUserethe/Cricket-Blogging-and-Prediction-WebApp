@@ -1,0 +1,216 @@
+<title>Today's Match Prediction</title>
+<meta name="description" content="Get expert predictions and opinions for every IPL match on Who Will Win. Stay ahead with insightful analysis and forecasts for Indian Premier League games.">
+<%- include('../partials/repBar.ejs') %>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var expertBtn1 = document.getElementById("team1expert");
+    var expertBtn2 = document.getElementById("team2expert");
+    var mdl = document.querySelector(".mdl");
+    var closeTag = document.getElementById("closeTag");
+
+    expertBtn1.addEventListener("click", function(){
+        mdl.style.display = "initial";
+    });
+    
+    closeTag.addEventListener("click", function(){
+        mdl.style.display = "block";
+    });
+});
+
+</script>
+<div class="blog-fullPage" id="pbg" style="padding-top: 5vw; display: flex; flex-direction: column;">
+ <% if(!user) { %>
+    <div class="blur-container">
+        <div class="b-content">
+            <div class="lock-icon"><i class="ri-lock-2-fill"></i></div>
+            <h4 style="color: #fff;">Today's Match Prediction</h4>
+            <p class="bp" style="color: #ffffffc7;">Unlock the full potential of your experience by logging in to your account. Gain access to premium features tailored just for you. Your journey awaits beyond this login page.</p>
+            <a href="/cric-login"><button id="b-login">Login</button></a>
+        </div>
+        <div class="blur-page"></div>
+      </div>
+ <% } else {%>
+    <div class="page-title">
+        TODAY'S MATCH PREDICTION
+    </div>
+ <%}%>
+    <div class="todays-prediction" id="prediction-banner">
+        
+        <div class="head-tl" style="width: 100%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 2vw; padding: 10px;"></div>
+        <div class="other-content" id="prediction-banner">
+            <%
+            // Map team names to image links
+            const Links = {
+                "KKR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/kkr_vryic9.jpg",
+                "PBKS": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/pbks_gqjclw.jpg",
+                "LSG": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/lsg_jdhwjt.jpg",
+                "GT": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/gt_ymrdg0.jpg",
+                "MI": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/mi_vj4a2v.jpg",
+                "RR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rr_s7vm3w.jpg",
+                "DC": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/dc_x5e4nu.jpg",
+                "RCB": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rcb_zcimbz.jpg",
+                "CSK": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/csk_umypzx.jpg",
+                "SRH": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/srh_qdnr6s.jpg",
+                // Add mappings for other teams as needed
+            };
+    
+            const t1ImageLink = Links[filteredFixtureData[0].teams.t1.sName] || "https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg"; // Default link if team name not found
+            const t2ImageLink = Links[filteredFixtureData[0].teams.t2.sName] || "https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg"; // Default link if team name not found
+            %>
+    
+
+            <% predictData.forEach(prediction => { %>
+                <% if (prediction.attributes.match_id === filteredFixtureData[0]._id) { %>
+                    <div class="Tbox">
+                        <% if (prediction.attributes.Team1 === true) { %>
+                            <div class="ww"><img src="/images/trophy.png" alt=""></div>
+                        <% } %>
+                        <div class="franchise"><img src="<%= t1ImageLink %>" alt=""></div>
+                        <div class="team-name"><%= teamone %></div>
+                        <div class="Tscore" style="font-size: 1.3vw;">
+                            <% if (prediction.attributes.Team1 === true) { %>
+                                <span id="team1expert" class="teamexperts">Experts Opinion</span>
+                            <% } %>
+                        </div>
+                    </div>
+    
+                    <div class="vs">
+                        <div class="sign"><img src="images/vs.png" alt="vs"></div>
+                        <div class="date">
+                            <% 
+                            var timestamp = filteredFixtureData[0].time; // Unix timestamp
+                            var date = new Date(timestamp * 1000);
+                            var options = { day: '2-digit', month: 'short', year: 'numeric' };
+                            var formattedDate = date.toLocaleDateString('en-US', options);
+                            %>
+                            <%= formattedDate %>
+                        </div>
+                        <div class="status"><%= filteredFixtureData[0].matchStatus %></div>
+                        <a href="/cric-predict-data"><button id="lastPrediction" style="padding: 5px 10px; font-size: 1vw;">Last Predictions</button></a>
+                    </div>
+    
+                    <div class="Tbox">
+                        <% if (prediction.attributes.Team2 === true) { %>
+                            <div class="ww" style="margin-left: -10vw !important;"><img src="/images/trophy.png" alt=""></div>
+                        <% } %>
+                        <div class="franchise"><img src="<%=t2ImageLink%>" alt=""></div>
+                        <div class="team-name"><%= teamtwo %></div>
+                        <div class="Tscore" style="font-size: 1.3vw;">
+                            <% if (prediction.attributes.Team2 === true) { %>
+                                <span id="team2expert" class="teamexperts">Experts Opinion</span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+            <% }); %>
+        </div>
+    </div>
+    
+    
+<div class="mdl">
+    <i class="ri-close-fill" id="closeTag"></i>
+   <div class="reason">
+    <% predictData.forEach((prediction) => { %>
+     <% if(prediction.attributes.commentary && prediction.attributes.match_id === filteredFixtureData[0]._id){ %> 
+       <a href="/blog/<%=prediction.attributes.com_id%>" style="color: #000 !important;"><span style="font-weight: bold; color: #000;">Experts Opinion: </span> <%=prediction.attributes.commentary%></a>
+    <% } else {%>
+        <span style="font-weight: bold; color: #000;"></span>
+     <%}%>
+     <% }) %>
+   </div>
+</div>
+
+<div class="next-match">
+    <% filteredFixtureData.forEach(item => {
+
+        // Map team names to image links
+        const teamImageLinks = {
+            "KKR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/kkr_vryic9.jpg",
+            "PBKS": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/pbks_gqjclw.jpg",
+            "LSG": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/lsg_jdhwjt.jpg",
+            "GT": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/gt_ymrdg0.jpg",
+            "MI": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/mi_vj4a2v.jpg",
+            "RR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rr_s7vm3w.jpg",
+            "DC": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/dc_x5e4nu.jpg",
+            "RCB": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rcb_zcimbz.jpg",
+            "CSK": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/csk_umypzx.jpg",
+            "SRH": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/srh_qdnr6s.jpg",
+            // Add mappings for other teams as needed
+        };
+    
+        const team1ImageLink = teamImageLinks[item.teams.t1.sName] || "https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg"; // Default link if team name not found
+        const team2ImageLink = teamImageLinks[item.teams.t2.sName] || "https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg"; // Default link if team name not found
+        
+    %>
+        <div class="match-card">
+            <div class="l-side">
+                 <div class="next-team">
+                    <div class="n-team">
+                        <div class="t-logo"><img src="<%=team1ImageLink%>" alt="team logo"></div>
+                        <div class="t-name" style="font-weight: bold;"><%= item.teams.t1.name %></div>
+                    </div>
+                    <div class="n-team">
+                        <div class="t-logo"><img src="<%=team2ImageLink%>" alt="team logo"></div>
+                        <div class="t-name" style="font-weight: bold;"><%= item.teams.t2.name %></div>
+                    </div>
+                 </div>
+            </div>
+            <img id="series" src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/1200px-Indian_Premier_League_Official_Logo.svg.png" alt="">
+            <div class="r-side">
+                <div class="date" style="font-size: 1.4vw; font-weight: bold;">
+                    <% 
+                    var timestamp = item.time; // Unix timestamp
+                    var date = new Date(timestamp * 1000);
+                    var options = { day: '2-digit', month: 'short', year: 'numeric' };
+                    var formattedDate = date.toLocaleDateString('en-US', options);
+                %>
+                <%= formattedDate %>
+                </div>
+                <div class="time" style="font-size: 1.6vw;">
+                    <% 
+                    var timeString = "7:30 PM"; // Original time string
+                    var timeParts = timeString.split(':'); // Splitting hours and minutes
+                    var hours = parseInt(timeParts[0]); // Extracting hours
+                    var minutes = parseInt(timeParts[1].split(' ')[0]); // Extracting minutes
+                    var meridiem = timeParts[1].split(' ')[1]; // Extracting AM/PM
+                    
+                    // Adjusting hours if PM
+                    if (meridiem === "PM" && hours < 12) {
+                        hours += 12;
+                    }
+                    
+                    // Formatting hours and minutes
+                    var formattedTime = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2);
+                    %> <%= formattedTime %> 
+                </div>
+                <div class="match-number" style="font-weight: bold;"><%=item.matchSuffix%></div>
+            </div>
+        </div>
+   <% }) %>
+</div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    var expertBtn1 = document.getElementById("team1expert");
+    var expertBtn2 = document.getElementById("team2expert");
+    var mdl = document.querySelector(".mdl");
+    var closeTag = document.getElementById("closeTag");
+
+    
+    expertBtn2.addEventListener("click", function(){
+        mdl.style.display = "initial";
+    });
+
+    
+    closeTag.addEventListener("click", function(){
+        mdl.style.display = "block";
+    });
+});
+
+
+
+</script>
+<%- include('../partials/rep-footer.ejs') %>

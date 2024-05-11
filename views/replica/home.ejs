@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CricWWW - Who Will Win</title>
+    <meta name="description" content=" Who Will Win is a curated educational and analytic tool for sports enthusiasts. Offers expert predictions on todays cricket match outcomes with analysis.">
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+ 
+  </head>
+  <body>
+   
+    <div class="main">
+
+      <!-- <div class="overlay">
+        <li><a href="/"><i class="ri-home-5-fill active"></i></a><span>Home</span></li>
+        <li><a href="/fixture"><i class="ri-calendar-fill"></i></a><span>Fixtures</span></li>
+        <li><a href="/stats-corner"><i class="ri-bar-chart-2-fill"></i></a><span>Stats</span></li>
+        <li><a href="/ranking"><i class="ri-trophy-fill"></i></a><span>Ranking</span></li>
+        <li><a href="/cric-prediction"><i class="ri-bubble-chart-fill"></i></a><span>Prediction</span></li>
+       </div> -->
+
+      <div class="series">
+       <div class="whole">
+        <a href="">
+          <div class="ss-card">
+            <img src="" alt="">
+          </div>
+         </a>
+         <span style="color: #fff;">T20</span>
+       </div>
+      </div>
+
+      <nav class="navbar bg-dark border-bottom border-body fixed-top" data-bs-theme="dark">
+        <div class="nav-logo">
+          <div class="logo mainLogo"><img style="object-fit: contain !important;" src="/images/LOGO.png" alt="logo"></div>
+         <a href="/" style="text-decoration: none;"> <span id="mainicon" style="font-size: 1.5vw;">CRIC<span style="color: #EE9B6A;">WWW</span></span></a>
+        </div>
+
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/cric-home">Home</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" id="ss" href="#">Series</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="/cric-fixture">Fixtures</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/cric-stats-corner">Stats Corner</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/cric-ranking">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/cric-prediction">Prediction</a>
+          </li>
+        <% if(!user) {  %> 
+          <li class="nav-item">
+            <a class="nav-link " href="/cric-login">Login</a>
+          </li>
+        <% } else {  %> 
+          <li class="nav-item">
+            <a class="nav-link " href="/cric-logout">Logout</a>
+          </li>
+        <% } %>
+        </ul>
+      </nav>
+
+      <div class="container" style="padding: 15px;" >
+        <div class="nav-buttons">
+          <i class="ri-arrow-left-s-line btn" style="font-size: 4vw; color: #dfdfdf;" ></i>
+          <i class="ri-arrow-right-s-line btn" style="font-size: 4vw; color: #dfdfdf;"></i>
+        </div>
+        <div class="heading"><span id="head">Matches for you</span></div>
+
+        <div class="main-body">
+          <div class="container" style="display: flex; gap: 30px;" id="score-container">
+              <!-- live score data -->
+              <%liveScoreData.forEach((match) => { %>
+                <% var matchTeam =  match.data.substring(0, 5).replace(/[^a-zA-Z]/g, '') %>
+                <% console.log(matchTeam) %>
+                <% if(['CSK', 'MI', 'SRH', 'DC', 'GT', 'LSG', 'RR', 'KKR', 'PBKS', 'RCB'].includes(matchTeam)) { %> 
+                  
+                 <a id="cw-anchor" href="<% var originalUrl = match.scoreCard; %>
+                  <% var modifiedUrl = originalUrl.replace(/^\/live-cricket-scores/, '/cric-scorecard'); %>
+                  <%= modifiedUrl %>">
+                  <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
+                    <div class="live-score">
+                      <div class="match-heading" style="border-bottom: 1px solid #00000025;  width: 100%; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: maroon;"> <%= match.data.substring(0, 5).replace(/[^a-zA-Z]/g, '') %> vs <%= match.bowl.substring(0, 5).replace(/[^a-zA-Z]/g, '') %></span>
+                        <span style="color: maroon;">
+                         LIVE
+                        </span>
+                      </div>
+      
+                      <div class="teams-details" style="padding: 30px; display: flex; gap: 5px; flex-direction: column;">
+                        <div class="team">
+                            <div class="name">
+                                <!-- <%= match.data.substring(0, 5).replace(/[^a-zA-Z]/g, '') %> -->
+                                <span class="teamName">
+                                    <%=match.data.replace(/(CSK|SRH|DC|RR|RCB|LSG|KKR|GT|MI|PBKS)(\d+)/g, "$1 $2") %>
+                                </span>
+                                <div class="cc">
+                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team">
+                            <div class="name">
+                                <span class="teamName">
+                                    <%=match.bowl.replace(/(CSK|SRH|DC|RR|RCB|LSG|KKR|GT|MI|PBKS)(\d+)/g, "$1 $2") %>
+                                </span>
+                                <div class="cc">
+                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+      
+                      <div class="venue" style="padding: 30px; display: flex; gap: 5px; flex-direction: column; margin-top: -2vw;">
+                        <span class="match-venue" style="color: maroon;"><%= match.status %></span>
+                        <span class="match-st" style="color: #000">Who Will Win</span>
+                        <a href="/cric-prediction" style="text-decoration: none;"><p class="prediction-tag">Match Prediction <i class="ri-arrow-right-line"></i></p></a>
+                      </div>
+                    </div>
+                </div>
+                 </a>
+    
+                  <% } %>
+                <% }) %>
+
+          <!-- upcoming matches data -->
+          <% filteredFixtureData.slice(0, 2).forEach((match) => { %>
+            <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
+              <div class="live-score">
+                <div class="match-heading" style="border-bottom: 1px solid #00000025; width: 100%; padding: 10px; display: flex; justify-content: center; align-items: center;">
+                  <span style="color: maroon; text-transform: capitalize;"><%=match.matchSuffix%> | <%=match.srs%></span>
+                </div>
+          
+                <div class="teams-details" style="padding: 30px; display: flex; gap: 5px; flex-direction: column;">
+                  <div class="team"><div class="dp"><img src="https://cdn.vectorstock.com/i/500p/35/58/cricket-ball-fire-logo-silhouette-club-vector-44833558.jpg" alt=""></div> <%= match.teams.t1.name %></div>
+                  <div class="team"><div class="dp"><img src="https://cdn.vectorstock.com/i/500p/35/58/cricket-ball-fire-logo-silhouette-club-vector-44833558.jpg" alt=""></div> <%= match.teams.t2.name  %></div>
+                </div>
+                
+                <div class="venue" style="padding: 30px; display: flex; gap: 5px; flex-direction: column; margin-top: -2vw;">
+                  <span class="match-venue" style="color: maroon;"><%= match.venue.substring(0, 35) %>...</span>
+                  <span class="match-st" style="color: #000">
+                    <% 
+                    var now = new Date();
+                    var date = new Date(match.time * 1000);
+                    var hours = date.getHours();
+                    var minutes = "0" + date.getMinutes();
+                    var ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12; // Handle midnight (0 hours)
+                    var formattedTime = hours + ':' + minutes.substr(-2) + ' ' + ampm;
+          
+                    // Check if the date matches today's date
+                    if (date.toDateString() === now.toDateString()) {
+                      %> Today <%= formattedTime %> <% 
+                    }
+                    // Check if the date matches tomorrow's date
+                    else if (date.getDate() === now.getDate() + 1) {
+                      %> Tomorrow <%= formattedTime %> <% 
+                    }
+                    // If not today or tomorrow, display the date
+                    else {
+                      %> <%= date.toLocaleDateString() %> <%= formattedTime %> <% 
+                    }
+                    %>
+                  </span>
+                  <% 
+                  // Check if the date matches today's date to decide the link text
+                  if (date.toDateString() === now.toDateString()) { 
+                  %>
+                    <a href="/cric-prediction" style="text-decoration: none;"><p class="prediction-tag">Today's Match Prediction <i class="ri-arrow-right-line"></i></p></a>
+                  <% } else { %>
+                    <a href="/cric-prediction" style="text-decoration: none;"><p class="prediction-tag">Match Prediction <i class="ri-arrow-right-line"></i></p></a>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+
+          </div>
+
+        </div>
+       
+      </div>
+
+      <div class="blog-body">
+
+        <div class="line"></div>
+
+
+        <% if (postData.length === 0) { %>
+          <div id="warning" style="display: flex; justify-content: center; align-items: center; font-size: 1.8vw; color: maroon;">No blog data available.</div>
+        <% } else { %>
+          <% postData.reverse().splice(startIndex, endIndex).forEach((data) => { %>
+            <div class="blog">
+              <div class="headline"><h3><%= data.attributes.Title.length > 70 ? data.attributes.Title.substring(0, 70) + '...' : data.attributes.Title %></h3></div>
+              <div class="blog-content">
+                <div class="blog-image"><img src="<%= data.attributes.imgUrl %>" alt="image"></div>
+                <div class="blog-textArea">
+                  <div class="sub-heading"><%= data.attributes.subtitle.length > 70 ? data.attributes.subtitle.substring(0, 70) + '...' : data.attributes.subtitle %></div>
+                  <div class="blog-description">
+                    <% 
+                      const description = data.attributes.description.length > 150 ? data.attributes.description.substring(0, 150) + "..." : data.attributes.description;
+                    %>
+                    <%= description %>
+                  </div>
+                  <a href="/cric-blog/<%= data.id %>" class="readMore">Read More...</a>
+                  <div class="timestamp" >
+                    <%= new Date(data.attributes.updatedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ', ' +
+                    new Date(data.attributes.updatedAt).toLocaleDateString([], {weekday: 'long', year: 'numeric', day: 'numeric'}) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+        
+     <div class="line"></div>
+      
+      </div>
+
+     
+       <div class="pagination">
+        
+       <!-- Show the "Prev" button only if not on the home page -->
+  <% if (startIndex > 0) { %>
+    <a href="/cric-prevPage"><button>Prev</button></a>
+  <% } %>
+  <a href="/cric-nextPage"><button>Next</button></a>
+       </div>
+     
+       <footer class="text-center text-lg-start bg-body-tertiary text-muted" >
+        <!-- Section: Social media -->
+        <section class="d-flex justify-content-center justify-content-lg-between border-bottom" style="background-color: #fff;">
+ 
+          <div>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+          <!-- Right -->
+        </section>
+        <!-- Section: Social media -->
+      
+        <!-- Section: Links  -->
+        <section class="" style="background-color: #131E29; color: #fff; padding: 15px;">
+          <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <!-- Content -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                  <i class="fas fa-gem me-3"></i>cricWWW
+                </h6>
+                <p style="font-size: 1.5vw;" id="footer-p">
+                  Join the pulse of Indian cricket. Explore the excitement of IPL , T20 and Indian Cricket with live updates, schedules, and stats. We offer deep analysis of todays upcoming match with predictions 
+                </p>
+              </div>
+              <!-- Grid column -->
+      
+              <!-- Grid column -->
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <!-- <h6 class="text-uppercase fw-bold mb-4">
+                  Products
+                </h6>
+                <p>
+                  <a href="#!" class="text-reset">Angular</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">React</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Vue</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Laravel</a>
+                </p>
+              </div> -->
+              <!-- Grid column -->
+      
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4" >
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                  Useful links
+                </h6>
+                <p>
+                  <a href="/cric-home" class="text-reset">Home</a>
+                </p>
+                <p>
+                  <a href="/cric-fixture" class="text-reset">Fixtures</a>
+                </p>
+                <p>
+                  <a href="/cric-stats-corner" class="text-reset">Stats</a>
+                </p>
+                <p>
+                  <a href="/cric-ranking" class="text-reset">Ranking</a>
+                </p>
+              </div>
+              <!-- Grid column -->
+      
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+               
+                <!-- <p>Cricket fans: Bound by passion, united by the game</p> -->
+                <!-- <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                <p>
+                  <i class="fas fa-envelope me-3"></i>
+                  info@example.com
+                </p>
+                <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p> -->
+              </div>
+           
+            </div>
+            <!-- Grid row -->
+          </div>
+        </section>
+        <!-- Section: Links  -->
+      
+        <!-- Copyright -->
+        <!-- <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+          © 2024 Copyright:
+          <a class="text-reset fw-bold" href="https://mdbootstrap.com/">example.com</a>
+        </div> -->
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+
+    </div>
+  
+    <script>
+       var expertOpinion = document.querySelectorAll("#expertOpinion");
+       var container = document.querySelectorAll('.container');
+       var comment = document.querySelectorAll(".comment");
+       var flag = 0;
+
+        expertOpinion.forEach((item, index) => {
+         item.addEventListener("click", function(){
+         
+        window.location.href = "/cric-prediction"; // Redirect to /cric-prediction when the button is clicked
+
+        //  if(flag === 0){
+        // comment[index].style.display = "flex";
+        //      item.style.cursor = "pointer";
+        //      item.style.color = "blue";
+        //      flag = 1;
+        //  }else{
+        //      comment[index].style.display = "none";
+        //      item.style.cursor = "pointer";
+        //      item.style.color = "#000";
+        //      flag = 0;
+        //    }
+        
+         })
+         item.addEventListener("mouseout", function(){
+           comment.forEach((comm, index) => {
+           comm.style.display = "none";
+           })
+         })
+      })
+
+       body.addEventListener("click", function(){
+        comment.style.display = "none";
+       })
+
+    </script>
+    <script src="/javascripts/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

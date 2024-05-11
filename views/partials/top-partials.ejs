@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CricWWW</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+  </head>
+  <body>
+   
+    <div class="loading-spinner" style="display: block;">
+      <%- include('./loader.ejs') %>
+    </div>
+
+    <div class="main">
+
+      <div class="overlay">
+       <li id="homeNav"><a href="/"><i class="ri-home-5-fill active"></i></a><span>Home</span></li>
+       <li><a href="/fixture"><i class="ri-calendar-fill"></i></a><span>Fixtures</span></li>
+       <li><a href="/stats-corner"><i class="ri-bar-chart-2-fill"></i></a><span>Stats</span></li>
+       <li><a href="/ranking"><i class="ri-trophy-fill"></i></a><span>Ranking</span></li>
+       <li><a href="/prediction"><i class="ri-bubble-chart-fill"></i></a><span>Prediction</span></li>
+      </div>
+
+      <nav class="navbar bg-dark border-bottom border-body fixed-top" data-bs-theme="dark">
+        <div class="nav-logo">
+          <div class="logo mainLogo"><img style="object-fit: contain !important;" src="/images/LOGO.png" alt="logo"></div>
+          <a href="/" style="text-decoration: none;"> <span id="mainicon" style="font-size: 1.5vw;">CRIC<span style="color: #EE9B6A;">WWW</span></span></a>
+        </div>
+
+        <ul class="nav justify-content-center">
+          <li class="nav-item" id="homeNav">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Series</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="/fixture">Fixtures</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/stats-corner">Stats Corner</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/ranking">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/prediction">Prediction</a>
+          </li>
+          <% if(!user) {  %> 
+            <li class="nav-item">
+              <a class="nav-link " href="/login">Login</a>
+            </li>
+          <% } else {  %> 
+            <li class="nav-item">
+              <a class="nav-link " href="/cric-logout">Logout</a>
+            </li>
+          <% } %>
+        </ul>
+      </nav>
+
+
+      

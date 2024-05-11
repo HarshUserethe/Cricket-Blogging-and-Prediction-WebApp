@@ -1,0 +1,12 @@
+{
+    "apps":[
+        {
+
+        "name": "cricwww",
+        "script": "./bin/www",
+        "watch": true,
+        "instance": 1
+    }
+
+    ]
+}

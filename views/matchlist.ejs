@@ -1,0 +1,58 @@
+<%- include('partials/top-partials.ejs') %>
+<title>Match table</title>
+
+<style>
+    .contt{
+        margin-top: 5vw;
+        width: 100%;
+    }
+</style>
+
+<div class="blog-fullPage">
+   <div class="contt">
+    <table class="table">
+        <thead>
+          <tr>
+            <th style="background-color: blue; color: #fff; text-align: center;"  scope="col">No.</th>
+            <th style="background-color: blue; color: #fff; text-align: center;"  scope="col">Match</th>
+            <th style="background-color: blue; color: #fff; text-align: center;"  scope="col">Status</th>
+            <th style="background-color: blue; color: #fff; text-align: center;"  scope="col">Match ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (ongoingMatches.length === 0 && filteredFixtureData.length === 0) { %>
+            <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5vw;">No Matches Found</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% ongoingMatches.forEach((match, index) => { %>
+                        <tr>
+                            <th scope="row"><%= index + 1 %></th>
+                            <td><%= match.name %></td>
+                            <td><%= match.status %></td>
+                            <td style="font-weight: bold;"><%= match.id %></td>
+                        </tr>
+                    <% }) %>
+                    <% filteredFixtureData.forEach((match, index) => { %>
+                        <tr>
+                            <th scope="row"><%= ongoingMatches.length + index + 1 %></th>
+                            <td><%= match.teams.t1.sName %> vs <%= match.teams.t2.sName  %></td>
+                            <td><%= match.matchStatus %></td>
+                            <td style="font-weight: bold;"><%= match._id %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+        </tbody>
+      </table>
+   </div>
+</div>

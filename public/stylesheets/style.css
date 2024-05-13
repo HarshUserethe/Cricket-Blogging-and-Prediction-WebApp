@@ -57,6 +57,7 @@ span{
   height: 54%;
   position: absolute;
   top: 0;
+  z-index: 1;
   filter: blur(25px);
   backdrop-filter: blur(25px);
 }
@@ -690,7 +691,6 @@ align-items: end;
 .ww{
   width:  8vw;
   height: 12vw;
-
   position: absolute;
   margin-left: 10vw;
 }
@@ -809,6 +809,7 @@ align-items: end;
 }
 .cw-ft{
   padding-bottom: 30px;
+  text-align: left !important;
 }
 .cw-lss:hover{
   background-color: #eeeeee;
@@ -830,7 +831,25 @@ tbody, td, tfoot, th, thead, tr {
 .place {
   color: #000 !important;
 }
+.match-venue{
+  font-size: 1vw;
+}
+.match-st{
+  font-size: 1vw;
+}
+a{
+  text-decoration: none !important;
+}
+.container::-webkit-scrollbar{
+  display: none;
+}
 @media only screen and (max-width: 900px) {
+  .bw-head{
+    font-size: 4vw !important;
+  }
+  .cw-bw{
+    width: 34vw !important;
+  }
   .cw-lss:hover{
     background-color: #eeeeee;
   }
@@ -911,9 +930,9 @@ tbody, td, tfoot, th, thead, tr {
   .prediction-tag {
     color: #fff;
     background: maroon;
-    font-size: 3vw;
+    font-size: 2.5vw;
     text-decoration: none;
-    padding: 4px;
+    padding: 2px;
     text-align: center;
     border-radius: 500px;
 }

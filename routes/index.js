@@ -10,6 +10,9 @@ const passport = require('passport');
 const localStrategy = require("passport-local");
 var bodyParser = require('body-parser');
 
+//mogodb connection
+const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
+const client = new MongoClient(uri);
 
 router.use(express.urlencoded({ extended: true }));
 router.use(bodyParser.json());
@@ -19,15 +22,55 @@ router.use(bodyParser.json());
 const url = 'https://www.cricbuzz.com/cricket-match/live-scores';
 const espnURL = 'https://www.espncricinfo.com/live-cricket-score?quick_class_id=domestic,t20';
 
+async function scrapeRecentData(){
+const urlw = 'https://www.cricbuzz.com/cricket-match/live-scores/recent-matches';
 
-// Function to fetch HTML content of the webpage
-async function fetchHTML(url) {
-  try {
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching the page:', error);
-  }
+axios.get(urlw)
+    .then(response => {
+        const $ = cheerio.load(response.data);
+
+        const matches = [];
+
+        $('.cb-col-100.cb-col.cb-schdl').each((index, element) => {
+            const matchElement = $(element);
+
+            const team1 = matchElement.find('.cb-hmscg-tm-nm').eq(0).text().trim();
+            const team2 = matchElement.find('.cb-hmscg-tm-nm').eq(1).text().trim();
+
+            const scores = matchElement.find('.cb-ovr-flo');
+            const team1Score = scores.eq(0).text().trim();
+            const team2Score = scores.eq(2).text().trim(); // Corrected index for team 2 score
+
+            const result = matchElement.find('.cb-text-complete').text().trim();
+
+            const scorecardLink = $('nav.cb-col-100.cb-col.padt5 a:nth-child(2)').attr('href') || '';
+
+            const matchLink = matchElement.find('.cb-lv-scrs-well-complete').attr('href') || '';
+            const matchNumberIndex = matchLink.lastIndexOf('-');
+            const matchNumber = matchNumberIndex !== -1 ? matchLink.substring(matchNumberIndex + 1) : '';
+
+            const date = new Date(matchNumber); // Assuming the match number contains the date
+
+            const matchData = {
+                team1,
+                team2,
+                team1Score,
+                team2Score,
+                result,
+                scorecardLink, // Ensure scorecard link is included
+                matchNumber,
+                date
+            };
+
+            matches.push(matchData);
+        });
+
+        const jsonData = JSON.stringify(matches, null, 2);
+        console.log(jsonData);
+    })
+    .catch(error => {
+        console.log(error);
+    });
 }
 
 // Function to scrape data from span tags within elements with class mr-2
@@ -59,7 +102,8 @@ async function scrapeData(url, fetchHTML) {
 
   return cricketMatches;
 }
- 
+
+
 // Define API endpoint
 router.get('/api/cricket', async (req, res) => {
   try {
@@ -728,91 +772,47 @@ router.get('/test', function(req, res){
   res.render('test');
 })
 
+
 router.get('/', async function(req, res, next) {
-   const user = await req.user;
-   const startIndex = req.session.startIndex;
-   const endIndex = req.session.endIndex;
-   const apiKey = await getNextApiKey();
+  const user = await req.user;
+  const startIndex = req.session.startIndex;
+  const endIndex = req.session.endIndex;
 
   try {
-     const iplMatch = await axios(`https://api.cricapi.com/v1/currentMatches?apikey=${apiKey}&offset=0`);
-     const liveScore = await axios('https://cricwww.com/api/cricket');
-     const liveScoreData = liveScore.data;
-   
-    
-     var matches = await iplMatch.data.data;
+    // Fetch data from external APIs in parallel
+    const [liveScoreResponse, blogResponse] = await Promise.all([
+      axios('https://cricwww.com/api/cricket'),
+      axios('http://45.129.86.137:3000/api/posts?populate=*')
+    ]);
 
-     if(iplMatch.data.status === 'failure'){
-       matches = [];
-     }else{
-      matches = await iplMatch.data.data;
-     }
-
-//-----------------------------------------------------------------------------------
-
- // Connection URI for MongoDB
- const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
-      
- // Create a new MongoClient
- const client = new MongoClient(uri);
-
-// Connect to the MongoDB server
- await client.connect();
-
- // Access the database and collection
- const database = client.db('cricwwwdb');
- const collection = database.collection('upcoming');
-
-// Fetch data from MongoDB
-const data = await collection.find({}).toArray();
-
- // Close the connection to the MongoDB server
- await client.close();
-
- const filteredFixture = data[0].res.matches
- const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 'ipl_2024');
-     
-//-----------------------------------------------------------------------------------
-
-
-    
-    //remove comment to show ipl matches ---->
-     const ongoingMatches = await matches.filter(match => match.teams.includes("India") || match.series_id === "76ae85e2-88e5-4e99-83e4-5f352108aebc" || match.matchEnded === "false");
-    //const ongoingMatches = await matches.filter(match => match.teams.includes("Ghana") || match.series_id === "fb93b3c0-1a69-4032-81fd-92f0f7b5019d");
-    //const ongoingMatches = await matches.filter(match => match.fantasyEnabled === true || match.teams.includes("India") || match.series_id === "76ae85e2-88e5-4e99-83e4-5f352108aebc");
-    
-   
-    const recentMatch =  await ongoingMatches.sort((a, b) => {
-      const dateA = new Date(a.dateTimeGMT);
-      const dateB = new Date(b.dateTimeGMT);
-
-      return dateB - dateA; // Sort in descending order
-  });
-    
-    const response = await axios('http://45.129.86.137:3000/api/posts?populate=*');
-    const comments = await axios('http://45.129.86.137:3000/api/comments');
-    const commentsReponse = comments.data.data;
-    const blogData = response.data;
+    const liveScoreData = liveScoreResponse.data;
+    const blogData = blogResponse.data;
     const postData = blogData.data;
 
-    //error handling --->
-    if (postData.length === 0 && commentsReponse.length === 0) {
-      return res.render('index', { postData: [], recentMatch: recentMatch, commentsReponse: [], startIndex: startIndex, endIndex: endIndex, user });
-    }
-    else if(postData.length === 0){
-      return res.render('index', { postData: [], recentMatch: recentMatch, commentsReponse, startIndex: startIndex, endIndex: endIndex, user });
-    }
-    else if(commentsReponse.length === 0){
-      return res.render('index', { postData, recentMatch: recentMatch, commentsReponse: [], startIndex: startIndex, endIndex: endIndex, user });
-    }
-    
-    res.render('index', {postData, startIndex, endIndex, recentMatch, commentsReponse, filteredFixtureData, liveScoreData, user})
-    // res.render('index', { blogData });
+    // Connect to MongoDB
+    await client.connect();
+
+    // Access the database and collection
+    const database = client.db('cricwwwdb');
+    const collection = database.collection('upcoming');
+
+    // Fetch data from MongoDB
+    const data = await collection.find({}).toArray();
+
+    // Close the connection to the MongoDB server
+    await client.close();
+
+    const filteredFixture = data[0].res.matches;
+    const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 'ipl_2024');
+
+    // Render the page with optimized data
+    res.render('index', {postData, startIndex, endIndex, filteredFixtureData, liveScoreData, user});
   } catch (error) {
-    res.status(500).send('Error: API daily limit exceeded. Please try again later.'); // Or a more informative message
-    console.error(error); // Handle errors gracefully (e.g., send an error page)
+    res.status(500).send('Error: API daily limit exceeded. Please try again later.');
+    console.error(error);
   }
 });
+
 
 router.get('/blog/:id', async (req, res) => {
   const user = req.user;
@@ -1634,17 +1634,81 @@ const scoreCardData = async (id, link) => {
         }
       });
     });
+// bowlers data --->
+let innings1BowlerData = [];
+let innings2BowlerData = [];
 
-    // console.log("Innings 1 Data:");
-    // console.log(JSON.stringify(innings1Data, null, 2));
+// Scrape data for innings 1 bowlers
+$('#innings_1 > .cb-col.cb-col-100.cb-ltst-wgt-hdr').each((index, element) => {
+  const $element = $(element);
+  const items = $element.find('.cb-scrd-itms');
 
-    // console.log("\nInnings 2 Data:");
-    // console.log(JSON.stringify(innings2Data, null, 2));
+  items.each((index, item) => {
+    const $item = $(item);
+    const bowlerName = $item.find('.cb-col-38 a').text().trim();
+
+    if (bowlerName) {
+      const overs = $item.find('.cb-col-8.text-right').eq(0).text().trim();
+      const maidens = $item.find('.cb-col-8.text-right').eq(1).text().trim();
+      const runsGiven = $item.find('.cb-col-10.text-right').eq(0).text().trim();
+      const wickets = $item.find('.cb-col-8.text-right.text-bold').text().trim();
+      const noBalls = $item.find('.cb-col-8.text-right').eq(2).text().trim();
+      const wides = $item.find('.cb-col-8.text-right').eq(3).text().trim();
+      const economy = $item.find('.cb-col-10.text-right').eq(1).text().trim();
+
+      innings1BowlerData.push({
+        bowlerName,
+        overs,
+        maidens,
+        runsGiven,
+        wickets,
+        noBalls,
+        wides,
+        economy,
+      });
+    }
+  });
+});
+
+// Scrape data for innings 2 bowlers
+$('#innings_2 > .cb-col.cb-col-100.cb-ltst-wgt-hdr').each((index, element) => {
+  const $element = $(element);
+  const items = $element.find('.cb-scrd-itms');
+
+  items.each((index, item) => {
+    const $item = $(item);
+    const bowlerName = $item.find('.cb-col-38 a').text().trim();
+
+    if (bowlerName) {
+      const overs = $item.find('.cb-col-8.text-right').eq(0).text().trim();
+      const maidens = $item.find('.cb-col-8.text-right').eq(1).text().trim();
+      const runsGiven = $item.find('.cb-col-10.text-right').eq(0).text().trim();
+      const wickets = $item.find('.cb-col-8.text-right.text-bold').text().trim();
+      const noBalls = $item.find('.cb-col-8.text-right').eq(2).text().trim();
+      const wides = $item.find('.cb-col-8.text-right').eq(3).text().trim();
+      const economy = $item.find('.cb-col-10.text-right').eq(1).text().trim();
+
+      innings2BowlerData.push({
+        bowlerName,
+        overs,
+        maidens,
+        runsGiven,
+        wickets,
+        noBalls,
+        wides,
+        economy,
+      });
+    }
+  });
+});
+
     return({
       firstInnings,
       secondInnings,
       innings1Data,
-      innings2Data
+      innings2Data,
+      innings1BowlerData,
+      innings2BowlerData
     });
     
   } catch (error) {
@@ -1678,6 +1742,7 @@ router.get('/scorecard/:id/:link', async (req, res) => {
   
 
   res.render('scorecard', {recentBlog, user, scoreData})
+  //res.send(scoreData);
 })
 
 router.get('/cric-scorecard/:id/:link', async (req, res) => {
@@ -1724,8 +1789,7 @@ router.get('/cric-prevPage',resetIfInactive, async (req, res) => {
   res.redirect('/cric-home');
 });
 
- 
+
+
 
 module.exports = router;
-
-

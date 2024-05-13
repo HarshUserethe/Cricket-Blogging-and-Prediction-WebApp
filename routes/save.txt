@@ -1,0 +1,36 @@
+router.get('/', async function(req, res, next) {
+   const user = await req.user;
+   const startIndex = req.session.startIndex;
+   const endIndex = req.session.endIndex;
+
+  try {
+     const liveScore = await axios('https://cricwww.com/api/cricket');
+     const liveScoreData = liveScore.data;
+     await client.connect();
+  
+
+ // Access the database and collection
+ const database = client.db('cricwwwdb');
+ const collection = database.collection('upcoming');
+
+// Fetch data from MongoDB
+const data = await collection.find({}).toArray();
+
+ // Close the connection to the MongoDB server
+ await client.close();
+
+ const filteredFixture = data[0].res.matches
+ const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 'ipl_2024');
+     
+ 
+    const response = await axios('http://45.129.86.137:3000/api/posts?populate=*');
+    const blogData = response.data;
+    const postData = blogData.data;
+
+    res.render('index', {postData, startIndex, endIndex, filteredFixtureData, liveScoreData, user})
+    // res.render('index', { blogData });
+  } catch (error) {
+    res.status(500).send('Error: API daily limit exceeded. Please try again later.'); // Or a more informative message
+    console.error(error); // Handle errors gracefully (e.g., send an error page)
+  }
+});

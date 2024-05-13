@@ -130,6 +130,53 @@
             </tbody>
           </table>
      </div>
+
+     <!-- BOWLING INNINGS 1 -->    
+     <div class="first-inn" style="position: relative;">
+      <div class="fs-team" style="width: 100%; background-color: #343A40; color: #fff; display: flex; justify-content: center !important; align-items: center;">
+      </div>
+        <table class="table table-cw">
+            <thead class="table-secondary">
+                <tr>
+                  <th scope="col" style="width: 100%;" class="cw-ft cw-bw">Bowler</th>
+                  <th scope="col" class="cw-ft cw-bw">O</th>
+                  <th scope="col" class="cw-ft cw-bw">M</th>
+                  <th scope="col" class="cw-ft cw-bw">R</th>
+                  <th scope="col" class="cw-ft cw-bw">W</th>
+                  <th scope="col" class="cw-ft cw-bw">NB</th>
+                  <!-- <th scope="col" class="cw-ft cw-bw">WD</th> -->
+                  <th scope="col" class="cw-ft cw-bw">ECO</th>
+                </tr>
+              </thead>
+            <tbody>
+
+         
+                <% if (scoreData.innings1BowlerData && scoreData.innings1BowlerData.length > 0) { %>
+                    <% scoreData.innings1BowlerData.forEach((bowler) => { %>
+                        <tr>
+                            <th scope="col" class="cw-ft cw-bw" style="display: flex; flex-direction: column;">
+                            <%= bowler.bowlerName %>               
+                            </th>
+                            <th scope="col" class="cw-ft cw-bw"><%= bowler.overs %></th>
+                            <th scope="col" class="cw-ft cw-bw"><%= bowler.maidens %></th>
+                            <th scope="col" class="cw-ft cw-bw"><%= bowler.runsGiven %></th>
+                            <th scope="col" class="cw-ft cw-bw"><%= bowler.wickets %></th>
+                            <th scope="col" class="cw-ft cw-bw"><%= bowler.noBalls %></th>
+                            <!-- <th scope="col" class="cw-ft cw-bw"><%= bowler.wides %></th> -->
+                            <th scope="col" class="cw-ft cw-bw"><%= bowler.economy %></th>
+                        </tr>
+                    <% }) %>
+
+                    <div class="fs-team" style="width: 100%; background-color: #1878d8; color: #fff; display: flex; justify-content: center; gap: 20px; align-items: center; padding: 10px;">
+                       <div class="dnb-txt bw-head"  style="font-weight: bold;">Bowlers</div>
+                    </div>
+                <% } %>
+            
+            
+                
+            </tbody>
+          </table>
+     </div>
         
      <hr>
      
@@ -185,6 +232,53 @@
           </tbody>
         </table>
    </div>
+
+    <!-- BOWLING INNINGS 2 --> 
+ <div class="first-inn" style="position: relative;">
+  <div class="fs-team" style="width: 100%; background-color: #343A40; color: #fff; display: flex; justify-content: center !important; align-items: center;">
+  </div>
+    <table class="table table-cw">
+        <thead class="table-secondary">
+            <tr>
+              <th scope="col" style="width: 100%;" class="cw-ft cw-bw">Bowler</th>
+              <th scope="col" class="cw-ft cw-bw">O</th>
+              <th scope="col" class="cw-ft cw-bw">M</th>
+              <th scope="col" class="cw-ft cw-bw">R</th>
+              <th scope="col" class="cw-ft cw-bw">W</th>
+              <th scope="col" class="cw-ft cw-bw">NB</th>
+              <!-- <th scope="col" class="cw-ft cw-bw">WD</th> -->
+              <th scope="col" class="cw-ft cw-bw">ECO</th>
+            </tr>
+          </thead>
+        <tbody>
+
+     
+            <% if (scoreData.innings2BowlerData && scoreData.innings2BowlerData.length > 0) { %>
+                <% scoreData.innings2BowlerData.forEach((bowler) => { %>
+                    <tr>
+                        <th scope="col" class="cw-ft cw-bw" style="display: flex; flex-direction: column;">
+                        <%= bowler.bowlerName %>               
+                        </th>
+                        <th scope="col" class="cw-ft cw-bw"><%= bowler.overs %></th>
+                        <th scope="col" class="cw-ft cw-bw"><%= bowler.maidens %></th>
+                        <th scope="col" class="cw-ft cw-bw"><%= bowler.runsGiven %></th>
+                        <th scope="col" class="cw-ft cw-bw"><%= bowler.wickets %></th>
+                        <th scope="col" class="cw-ft cw-bw"><%= bowler.noBalls %></th>
+                        <!-- <th scope="col" class="cw-ft cw-bw"><%= bowler.wides %></th> -->
+                        <th scope="col" class="cw-ft cw-bw"><%= bowler.economy %></th>
+                    </tr>
+                <% }) %>
+
+                <div class="fs-team" style="width: 100%; background-color: #1878d8; color: #fff; display: flex; justify-content: center; gap: 20px; align-items: center; padding: 10px;">
+                   <div class="dnb-txt bw-head"  style="font-weight: bold;">Bowlers</div>
+                </div>
+            <% } %>
+        
+        
+            
+        </tbody>
+      </table>
+ </div>
   
  <%}%>
         

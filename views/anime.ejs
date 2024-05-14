@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%
+    var passPrediction = 0;
+    var wrongPrediction = 0;
+    var totalPredictions = 0;
+    var numberofmatch = 0;
+    var prediction = 0;
+
+    
+
+    recentMatches.forEach((match) => {
+        numberofmatch ++;
+        data.forEach((predict) => {
+            prediction ++;
+            // Check if the prediction is for Team1 and if the match result includes the team name
+            if (predict.attributes.Team1 && match.result.message.includes('Rajasthan Royals') {
+                passPrediction ++
+            } else {
+                wrongPrediction ++;
+            }
+        });
+    });
+
+
+var totalPredictions = (prediction / numberofmatch); 
+var passPredict = (passPrediction / 12);
+var wrongPredict = (wrongPrediction /12);
+var correctPrediction = ((passPredict / totalPredictions) * 100).toFixed(2);
+var incorectPrediction = ((wrongPredict / totalPredictions) * 100).toFixed(2);
+
+
+console.log("Fail: ",incorectPrediction);
+console.log("Pass: ",correctPrediction);
+
+%>
+
+<div>
+   
+</div>
+
+
+</body>
+</html>

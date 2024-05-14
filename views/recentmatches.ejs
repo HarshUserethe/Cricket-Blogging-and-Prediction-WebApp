@@ -1,0 +1,96 @@
+<%- include('partials/top-partials.ejs') %>
+<meta name="description" content="Explore upcoming fixtures for IPL and Cricket World Cup, along with recent match results, Stay updated with schedules, scores, and match outcomes.">
+<style>
+     .rec-card{
+  width: 25vw;
+  height: 15vw;
+  border-radius: 7px;
+  background-color: #fff;
+  border: 1px solid #adadad;
+  margin-top: 2vw;
+  cursor: pointer;
+
+ }
+ .cards-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 90%;
+ }
+ .cw-card-top{
+ padding: 10px;
+ padding-left: 30px;
+ }
+ .cw-card-top>p{
+  font-size: 1.2vw;
+ }
+ .cw-score{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 1.2vw;
+ }
+ .cw-result{
+  color: green;
+  font-size: 1.2vw;
+  padding-left: 30px;
+ }
+</style>
+
+<div class="blog-fullPage" style="padding: 25px; display: flex; justify-content: center; align-items: center; flex-direction: column; padding-top:80px; gap: 25px;">
+  <div class="cards-container">
+  <% filteredMatches.forEach((match) => { %>
+    <%console.log(match.scorecardLink)%> 
+    <a href="/scorecard<%=match.scorecardLink%>"><div class="rec-card">
+        <div class="cw-card-top" style="display: flex; justify-content: space-between; align-items: center;">
+            <p style="color: #000; font-weight: 400;"><%=match.team1%> vs <%=match.team2%> </p>
+            <p style="color: #000; font-weight: 400;">
+                    Previous Matches
+            </p>
+        </div>
+    
+        <div class="cw-bottom">
+            <div class="cw-score">
+                <div class="cw-f"> <%=match.team1Score.replace(/(CSK|SRH|DC|RR|RCB|LSG|KKR|GT|MI|PBKS)(\d+)/g, "$1 $2") %></div>
+                <div class="cw-f"></div>
+            </div>
+
+            <div class="cw-score">
+                <div class="cw-f"><%=match.team2Score.replace(/(CSK|SRH|DC|RR|RCB|LSG|KKR|GT|MI|PBKS)(\d+)/g, "$1 $2") %></div>
+                <div class="cw-f"></div>
+            </div>
+    
+            <div class="cw-result">
+                <div class="cw-r" style="font-size: 1vw;"><%=match.result %></div>
+                <div class="cw-r" style="color: blue;">Click to view scorecard</div>
+            </div>
+        </div>
+       </div></a>
+  <% }) %>
+   
+   
+  </div>
+</div>
+<script>
+
+    var homeButton = document.getElementById('homeNav');
+    
+    homeButton.addEventListener("click", function(){
+      console.log("CLIKED")
+      document.querySelector('.loading-spinner').style.display = 'block';  
+      document.querySelector('#b-login').style.display = 'none'; 
+      document.querySelector('.lock-icon>i ').style.display = 'none';  
+      
+    })
+    
+     window.addEventListener('load', function() {
+      // Page has finished loading, hide the loading spinner
+      document.querySelector('.loading-spinner').style.display = 'none';  
+    });
+    </script>
+<%- include('partials/footer.ejs') %>

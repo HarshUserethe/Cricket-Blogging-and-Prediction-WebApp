@@ -1,0 +1,362 @@
+[
+    {
+        "match_number": 4,
+        "team1": "Rajasthan Royals",
+        "team2": "Lucknow Super Giants",
+        "winner": "Rajasthan Royals"
+    },
+    {
+        "match_number": 5,
+        "team1": "Gujarat Titans",
+        "team2": "Mumbai Indians",
+        "winner": "Gujarat Titans"
+    },
+    {
+        "match_number": 6,
+        "team1": "Punjab Kings",
+        "team2": "Royal Challengers Bengaluru",
+        "winner": "Royal Challengers Bengaluru"
+    },
+    {
+        "match_number": 7,
+        "team1": "Chennai Super Kings",
+        "team2": "Gujarat Titans",
+        "winner": "Chennai Super Kings"
+    },
+    {
+        "match_number": 8,
+        "team1": "Sunrisers Hyderabad",
+        "team2": "Mumbai Indians",
+        "winner": "Sunrisers Hyderabad"
+    },
+    {
+        "match_number": 9,
+        "team1": "Rajasthan Royals",
+        "team2": "Delhi Capitals",
+        "winner": "Rajasthan Royals"
+    },
+    {
+        "match_number": 10,
+        "team1": "Royal Challengers Bengaluru",
+        "team2": "Kolkata Knight Riders",
+        "winner": "Kolkata Knight Riders"
+    },
+    {
+        "match_number": 11,
+        "team1": "Lucknow Super Giants",
+        "team2": "Punjab Kings",
+        "winner": "Lucknow Super Giants"
+    },
+    {
+        "match_number": 12,
+        "team1": "Sunrisers Hyderabad",
+        "team2": "Gujarat Titans",
+        "winner": "Gujarat Titans"
+    },
+    {
+        "match_number": 13,
+        "team1": "Delhi Capitals",
+        "team2": "Chennai Super Kings",
+        "winner": "Delhi Capitals"
+    },
+    {
+        "match_number": 14,
+        "team1": "Mumbai Indians",
+        "team2": "Rajasthan Royals",
+        "winner": "Rajasthan Royals"
+    },
+    {
+        "match_number": 15,
+        "team1": "Lucknow Super Giants",
+        "team2": "Royal Challengers Bengaluru",
+        "winner": "Lucknow Super Giants"
+    },
+    {
+        "match_number": 16,
+        "team1": "Kolkata Knight Riders",
+        "team2": "Delhi Capitals",
+        "winner": "Kolkata Knight Riders"
+    },
+    {
+        "match_number": 17,
+        "team1": "Gujarat Titans",
+        "team2": "Punjab Kings",
+        "winner": "Punjab Kings"
+    },
+    {
+        "match_number": 18,
+        "team1": "Chennai Super Kings",
+        "team2": "Sunrisers Hyderabad",
+        "winner": "Sunrisers Hyderabad"
+    },
+    {
+        "match_number": 19,
+        "team1": "Royal Challengers Bengaluru",
+        "team2": "Rajasthan Royals",
+        "winner": "Rajasthan Royals"
+    },
+    {
+        "match_number": 20,
+        "team1": "Mumbai Indians",
+        "team2": "Delhi Capitals",
+        "winner": "Mumbai Indians"
+    },
+    {
+        "match_number": 21,
+        "team1": "Lucknow Super Giants",
+        "team2": "Gujarat Titans",
+        "winner": "Lucknow Super Giants"
+    },
+    {
+        "match_number": 22,
+        "team1": "Chennai Super Kings",
+        "team2": "Kolkata Knight Riders",
+        "winner": "Chennai Super Kings"
+    },
+    {
+        "match_number": 23,
+        "team1": "Sunrisers Hyderabad",
+        "team2": "Punjab Kings",
+        "winner": "Sunrisers Hyderabad"
+    },
+    {
+        "match_number": 24,
+        "team1": "Rajasthan Royals",
+        "team2": "Gujarat Titans",
+        "winner": "Gujarat Titans"
+    },
+    {
+        "match_number": 25,
+        "team1": "Royal Challengers Bengaluru",
+        "team2": "Mumbai Indians",
+        "winner": "Mumbai Indians"
+    },
+    {
+        "match_number": 26,
+        "team1": "Lucknow Super Giants",
+        "team2": "Delhi Capitals",
+        "winner": "Delhi Capitals"
+    },
+    {
+        "match_number": 27,
+        "team1": "Punjab Kings",
+        "team2": "Rajasthan Royals",
+        "winner": "Rajasthan Royals"
+    },
+    {
+        "match_number": 28,
+        "team1": "Lucknow Super Giants",
+        "team2": "Kolkata Knight Riders",
+        "winner": "Kolkata Knight Riders"
+    },
+    {
+        "match_number": 29,
+        "team1": "Chennai Super Kings",
+        "team2": "Mumbai Indians",
+        "winner": "Chennai Super Kings"
+    },
+    {
+        "match_number": 30,
+        "team1": "Sunrisers Hyderabad",
+        "team2": "Royal Challengers Bengaluru",
+        "winner": "Sunrisers Hyderabad"
+    },
+    {
+        "match_number": 31,
+        "team1": "Kolkata Knight Riders",
+        "team2": "Rajasthan Royals",
+        "winner": "Rajasthan Royals"
+    },
+    {
+        "match_number": 32,
+        "team1": "Gujarat Titans",
+        "team2": "Delhi Capitals",
+        "winner": "Delhi Capitals"
+    },
+    {
+        "match_number": 33,
+        "team1": "Mumbai Indians",
+        "team2": "Punjab Kings",
+        "winner": "Mumbai Indians"
+    },
+    {
+        "match_number": 34,
+        "team1": "Chennai Super Kings",
+        "team2": "Lucknow Super Giants",
+        "winner": "Lucknow Super Giants"
+    },
+    {
+        "match_number": 35,
+        "team1": "Sunrisers Hyderabad",
+        "team2": "Delhi Capitals",
+        "winner": "Sunrisers Hyderabad"
+    },
+    {
+        "match_number": 36,
+        "team1": "Kolkata Knight Riders",
+        "team2": "Royal Challengers Bengaluru",
+        "winner": "Kolkata Knight Riders"
+    },
+    {
+        "match_number": 37,
+        "team1": "Punjab Kings",
+        "team2": "Gujarat Titans",
+        "winner": "Gujarat Titans"
+    },
+    {
+        "match_number": 38,
+        "team1": "Mumbai Indians",
+        "team2": "Rajasthan Royals",
+        "winner": "Rajasthan Royals"
+    },
+    {
+        "match_number": 39,
+        "team1": "Chennai Super Kings",
+        "team2": "Lucknow Super Giants",
+        "winner": "Lucknow Super Giants"
+    },
+    {
+        "match_number": 40,
+        "team1": "Delhi Capitals",
+        "team2": "Gujarat Titans",
+        "winner": "Delhi Capitals"
+    },
+    {
+        "match_number": 41,
+        "team1": "Royal Challengers Bengaluru",
+        "team2": "Sunrisers Hyderabad",
+        "winner": "Royal Challengers Bengaluru"
+    },
+    {
+        "match_number": 42,
+        "team1": "Kolkata Knight Riders",
+        "team2": "Punjab Kings",
+        "winner": "Punjab Kings"
+    },
+    {
+        "match_number": 43,
+        "team1": "Delhi Capitals",
+        "team2": "Mumbai Indians",
+        "winner": "Delhi Capitals"
+    },
+    {
+        "match_number": 44,
+        "team1": "Lucknow Super Giants",
+        "team2": "Rajasthan Royals",
+        "winner": "Rajasthan Royals"
+    },
+    {
+        "match_number": 45,
+        "team1": "Chennai Super Kings",
+        "team2": "Punjab Kings",
+        "winner": "Chennai Super Kings"
+    },
+    {
+        "match_number": 46,
+        "team1": "Sunrisers Hyderabad",
+        "team2": "Rajasthan Royals",
+        "winner": "Sunrisers Hyderabad"
+    },
+    {
+        "match_number": 47,
+        "team1": "Delhi Capitals",
+        "team2": "Kolkata Knight Riders",
+        "winner": "Kolkata Knight Riders"
+    },
+    {
+        "match_number": 48,
+        "team1": "Mumbai Indians",
+        "team2": "Lucknow Super Giants",
+        "winner": "Lucknow Super Giants"
+    },
+    {
+        "match_number": 49,
+        "team1": "Chennai Super Kings",
+        "team2": "Punjab Kings",
+        "winner": "Punjab Kings"
+    },
+    {
+        "match_number": 50,
+        "team1": "Sunrisers Hyderabad",
+        "team2": "Rajasthan Royals",
+        "winner": "Sunrisers Hyderabad"
+    },
+    {
+        "match_number": 51,
+        "team1": "Kolkata Knight Riders",
+        "team2": "Mumbai Indians",
+        "winner": "Kolkata Knight Riders"
+    },
+    {
+        "match_number": 52,
+        "team1": "Gujarat Titans",
+        "team2": "Royal Challengers Bengaluru",
+        "winner": "Royal Challengers Bengaluru"
+    },
+    {
+        "match_number": 53,
+        "team1": "Chennai Super Kings",
+        "team2": "Punjab Kings",
+        "winner": "Chennai Super Kings"
+    },
+    {
+        "match_number": 54,
+        "team1": "Kolkata Knight Riders",
+        "team2": "Lucknow Super Giants",
+        "winner": "Kolkata Knight Riders"
+    },
+    {
+        "match_number": 55,
+        "team1": "Sunrisers Hyderabad",
+        "team2": "Mumbai Indians",
+        "winner": "Mumbai Indians"
+    },
+    {
+        "match_number": 56,
+        "team1": "Delhi Capitals",
+        "team2": "Rajasthan Royals",
+        "winner": "Delhi Capitals"
+    },
+    {
+        "match_number": 57,
+        "team1": "Lucknow Super Giants",
+        "team2": "Sunrisers Hyderabad",
+        "winner": "Sunrisers Hyderabad"
+    },
+    {
+        "match_number": 58,
+        "team1": "Royal Challengers Bengaluru",
+        "team2": "Punjab Kings",
+        "winner": "Royal Challengers Bengaluru"
+    },
+    {
+        "match_number": 59,
+        "team1": "Gujarat Titans",
+        "team2": "Chennai Super Kings",
+        "winner": "Gujarat Titans"
+    },
+    {
+        "match_number": 60,
+        "team1": "Kolkata Knight Riders",
+        "team2": "Mumbai Indians",
+        "winner": "Kolkata Knight Riders"
+    },
+    {
+        "match_number": 61,
+        "team1": "Rajasthan Royals",
+        "team2": "Chennai Super Kings",
+        "winner": "Chennai Super Kings"
+    },
+    {
+        "match_number": 62,
+        "team1": "Royal Challengers Bengaluru",
+        "team2": "Delhi Capitals",
+        "winner": "Royal Challengers Bengaluru"
+    },
+    {
+        "match_number": 63,
+        "team1": "Gujarat Titans",
+        "team2": "Kolkata Knight Riders",
+        "winner": "ABANDONED"
+    }
+]

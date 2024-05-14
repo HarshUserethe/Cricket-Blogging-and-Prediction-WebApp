@@ -9,6 +9,8 @@ var userModel = require('./users');
 const passport = require('passport');
 const localStrategy = require("passport-local");
 var bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path'); 
 
 //mogodb connection
 const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
@@ -22,55 +24,54 @@ router.use(bodyParser.json());
 const url = 'https://www.cricbuzz.com/cricket-match/live-scores';
 const espnURL = 'https://www.espncricinfo.com/live-cricket-score?quick_class_id=domestic,t20';
 
-async function scrapeRecentData(){
-const urlw = 'https://www.cricbuzz.com/cricket-match/live-scores/recent-matches';
+async function scrapeRecentData() {
+  const urlw = 'https://www.cricbuzz.com/cricket-match/live-scores/recent-matches';
 
-axios.get(urlw)
-    .then(response => {
-        const $ = cheerio.load(response.data);
+  try {
+    const response = await axios.get(urlw);
+    const $ = cheerio.load(response.data);
 
-        const matches = [];
+    const matches = [];
 
-        $('.cb-col-100.cb-col.cb-schdl').each((index, element) => {
-            const matchElement = $(element);
+    $('.cb-col-100.cb-col.cb-schdl').each((index, element) => {
+      const matchElement = $(element);
 
-            const team1 = matchElement.find('.cb-hmscg-tm-nm').eq(0).text().trim();
-            const team2 = matchElement.find('.cb-hmscg-tm-nm').eq(1).text().trim();
+      const team1 = matchElement.find('.cb-hmscg-tm-nm').eq(0).text().trim();
+      const team2 = matchElement.find('.cb-hmscg-tm-nm').eq(1).text().trim();
 
-            const scores = matchElement.find('.cb-ovr-flo');
-            const team1Score = scores.eq(0).text().trim();
-            const team2Score = scores.eq(2).text().trim(); // Corrected index for team 2 score
+      const scores = matchElement.find('.cb-ovr-flo');
+      const team1Score = scores.eq(0).text().trim();
+      const team2Score = scores.eq(2).text().trim(); // Corrected index for team 2 score
 
-            const result = matchElement.find('.cb-text-complete').text().trim();
+      const result = matchElement.find('.cb-text-complete').text().trim();
 
-            const scorecardLink = $('nav.cb-col-100.cb-col.padt5 a:nth-child(2)').attr('href') || '';
+      const scorecardLink = $('nav.cb-col-100.cb-col.padt5 a:nth-child(2)').attr('href') || '';
 
-            const matchLink = matchElement.find('.cb-lv-scrs-well-complete').attr('href') || '';
-            const matchNumberIndex = matchLink.lastIndexOf('-');
-            const matchNumber = matchNumberIndex !== -1 ? matchLink.substring(matchNumberIndex + 1) : '';
+      const matchLink = matchElement.find('.cb-lv-scrs-well-complete').attr('href') || '';
+      const matchNumberIndex = matchLink.lastIndexOf('-');
+      const matchNumber = matchNumberIndex !== -1 ? matchLink.substring(matchNumberIndex + 1) : '';
 
-            const date = new Date(matchNumber); // Assuming the match number contains the date
+      const date = new Date(matchNumber); // Assuming the match number contains the date
 
-            const matchData = {
-                team1,
-                team2,
-                team1Score,
-                team2Score,
-                result,
-                scorecardLink, // Ensure scorecard link is included
-                matchNumber,
-                date
-            };
+      const matchData = {
+        team1,
+        team2,
+        team1Score,
+        team2Score,
+        result,
+        scorecardLink, // Ensure scorecard link is included
+        matchNumber,
+        date
+      };
 
-            matches.push(matchData);
-        });
-
-        const jsonData = JSON.stringify(matches, null, 2);
-        console.log(jsonData);
-    })
-    .catch(error => {
-        console.log(error);
+      matches.push(matchData);
     });
+
+    return matches;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 // Function to scrape data from span tags within elements with class mr-2
@@ -1154,10 +1155,12 @@ router.get('/prediction', async function(req, res) {
      const collection = database.collection('upcoming');
      const predict = await axios('http://45.129.86.137:3000/api/comments');
      const predictData = predict.data.data;
+     const recentMatchesCollection = database.collection('recentMatches');
    
 
       // Fetch data from MongoDB
       const data = await collection.find({}).toArray();
+      const recent = await recentMatchesCollection.find({}).toArray();
 
       // Close the connection to the MongoDB server
        await client.close();
@@ -1168,7 +1171,21 @@ router.get('/prediction', async function(req, res) {
       const teamone = filteredFixtureData[0].teams.t1.sName;
       const teamtwo = filteredFixtureData[0].teams.t2.sName;
 
-      res.render('prediction', {filteredFixtureData, teamone, teamtwo, predictData, user});
+
+      //prediction data
+  const prediction = await axios('http://45.129.86.137:3000/api/comments?populate=*')
+  const pdata = prediction.data.data;
+  //result of  match
+  const recentRecord = recent[0].res.matches;
+
+  //file system  of  ipl results 2024
+   // Read data from local JSON file
+   const filePath = path.join(__dirname, '../public/api/matchresults.json');
+   const fsdata = fs.readFileSync(filePath, 'utf8');
+   const jsonData = JSON.parse(fsdata);
+
+
+      res.render('prediction', {filteredFixtureData, teamone, teamtwo, predictData, user, recentMatches:jsonData, pdata});
   } catch (error) {
     console.error("Error fetching data from MongoDB:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1789,7 +1806,39 @@ router.get('/cric-prevPage',resetIfInactive, async (req, res) => {
   res.redirect('/cric-home');
 });
 
+router.get('/recent-match', async function(req, res) {
+  try {
+    const user = await req.user;
+    const recentMatchData = await scrapeRecentData();
+    const filteredMatches = recentMatchData.filter(match => {
+      const teams = ['CSK', 'MI', 'GT', 'RR', 'KKR', 'SRH', 'RCB', 'LSG', 'DC', 'PBKS'];
+      return teams.some(team => match.team1.includes(team));
+    });
 
+    res.render('recentmatches', {user, filteredMatches})
+    //res.send(filteredMatches)
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
+var directory  = require('../public/api/matchresults.json')
+
+router.get('/anime', async function(req, res){
+  //prediction data
+  const prediction = await axios('http://45.129.86.137:3000/api/comments?populate=*')
+  const data = prediction.data.data;
+  const team1Values = data.map(item => item.attributes.Team1);
+
+          // Read data from local JSON file
+          const filePath = path.join(__dirname, '../public/api/matchresults.json');
+          const fsdata = fs.readFileSync(filePath, 'utf8');
+          const jsonData = JSON.parse(fsdata);
+  
+res.send(jsonData)
+// res.render('anime', {recentMatches, data})
+
+})
 
 module.exports = router;

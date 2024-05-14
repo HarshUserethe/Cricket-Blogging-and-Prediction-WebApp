@@ -123,6 +123,57 @@
 </div>
 
 <div class="next-match">
+    <div class="prediction-per-bar" style="width: 100%; height: 8vw; background-color: #fff; flex-direction: column; display: flex; justify-content: center; align-items: center;">
+        <h4 style="font-weight: bold;">Our Prediction Rate</h4>
+        <%
+        var passPrediction = 0;
+        var wrongPrediction = 0;
+        var totalPredictions = 0;
+        var numberofmatch = 0;
+        var prediction = 0;
+        var flag = 0;
+        
+        // Assuming pdata and recentMatches are arrays
+        for (var i = 0; i < recentMatches.length; i++) {
+            numberofmatch++;
+            var match = recentMatches[i];
+            for (var j = 0; j < pdata.length; j++) {
+                var predict = pdata[j];
+                if (flag === 0) {
+                    prediction++;
+                    if (match.winner && (predict.attributes.Team1 || predict.attributes.Team2)) {
+                        if (predict.attributes.Team1 && match.winner === match.team1) {
+                            passPrediction++;
+                            console.log(match.team1);
+                            flag = 1;
+                        } else if (predict.attributes.Team2 && match.winner === match.team2) {
+                            console.log(match.team2);
+                            flag = 1;
+                        } else {
+                            wrongPrediction++;
+                            flag = 1;
+                        }
+                    }
+                }
+            }
+            flag = 0;
+        }
+        
+
+        var correctPrediction = ((passPrediction / numberofmatch) * 100).toFixed(2);
+        var incorrectPrediction = ((wrongPrediction / numberofmatch) * 100).toFixed(2);
+        var matches = numberofmatch - 3;
+        // Set the width dynamically for pass and fail divs
+        var passWidth = correctPrediction + '%';
+        var failWidth = incorrectPrediction + '%';
+        
+        %>
+    
+        <div class="p-bar-cont" style="border-radius: 500px;">
+            <div class="pass" style="border-top-left-radius: 250px; border-bottom-left-radius: 250px; padding: 12px; font-size: 1vw; display: flex; justify-content: center; align-items: center; height: 100%; width: <%= passWidth %>; background-color: green; color: #fff;"><%= correctPrediction %>%</div>
+            <div class="fail" style="border-top-right-radius: 250px; border-bottom-right-radius: 250px; padding: 12px; font-size: 1vw; display: flex; justify-content: center; align-items: center; height: 100%; width: <%= failWidth %>; background-color: red; color: #fff;"><%= incorrectPrediction %>%</div>
+        </div>
+    </div>
     <% filteredFixtureData.forEach(item => {
 
         // Map team names to image links

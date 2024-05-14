@@ -843,6 +843,12 @@ a{
 .container::-webkit-scrollbar{
   display: none;
 }
+.p-bar-cont{
+  width: 80%; 
+  height: 18%;
+  display: flex;
+}
+
 @media only screen and (max-width: 900px) {
   .bw-head{
     font-size: 4vw !important;

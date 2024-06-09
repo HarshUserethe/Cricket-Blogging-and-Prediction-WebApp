@@ -56,3 +56,22 @@
       </table>
    </div>
 </div>
+
+<script>
+
+    var homeButton = document.getElementById('homeNav');
+    
+    homeButton.addEventListener("click", function(){
+      console.log("CLIKED")
+      document.querySelector('.loading-spinner').style.display = 'block';  
+      document.querySelector('#b-login').style.display = 'none'; 
+      document.querySelector('.lock-icon>i ').style.display = 'none';  
+      
+    })
+    
+     window.addEventListener('load', function() {
+      // Page has finished loading, hide the loading spinner
+      document.querySelector('.loading-spinner').style.display = 'none';  
+    });
+    </script>
+<%- include('partials/footer.ejs') %>

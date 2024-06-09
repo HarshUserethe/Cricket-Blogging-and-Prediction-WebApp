@@ -75,8 +75,8 @@ async function scrapeRecentData() {
 }
 
 // Function to scrape data from span tags within elements with class mr-2
-async function scrapeData(url, fetchHTML) {
-  const html = await fetchHTML(url);
+async function scrapeData() {
+  const html = await axios('https://www.cricbuzz.com/cricket-match/live-scores');
   const $ = cheerio.load(html);
 
   const cricketMatches = [];
@@ -108,7 +108,7 @@ async function scrapeData(url, fetchHTML) {
 // Define API endpoint
 router.get('/api/cricket', async (req, res) => {
   try {
-    const cricketData = await scrapeData(url, fetchHTML);
+    const cricketData = [];
     res.json(cricketData);
   } catch (error) {
     console.error('Error scraping cricket data:', error);
@@ -208,10 +208,12 @@ const apiDataSchema = new mongoose.Schema({
 async function addUpcomingMatch() {
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/schedule/upcoming',
-    headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
-    },
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/schedule/upcoming',
+  headers: {
+    'content-type': 'application/json',
+    'X-RapidAPI-Key': '6ba908690amshd4b07d33b192145p105439jsn155e82bfa3a6',
+    'X-RapidAPI-Host': 'free-cricket-live-score1.p.rapidapi.com'
+  },
     data: {
       page_number: 1,
       match_formate: ''
@@ -250,9 +252,10 @@ async function addUpcomingMatch() {
 async function addAllT20Schedule(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/schedule/upcoming',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/schedule/upcoming',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       "page_number": 2,
@@ -293,9 +296,11 @@ async function addAllT20Schedule(){
 async function recentMatch(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/schedule/recent',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/schedule/recent',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'content-type': 'application/json',
+      'X-RapidAPI-Key': '6ba908690amshd4b07d33b192145p105439jsn155e82bfa3a6',
+      'X-RapidAPI-Host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       page_number: 1,
@@ -335,9 +340,10 @@ async function recentMatch(){
 async function mensBattingT20(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/ranking/men',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/ranking/men',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       match_formate: 't20',
@@ -377,9 +383,10 @@ async function mensBattingT20(){
 async function mensBattingODI(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/ranking/men',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/ranking/men',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       match_formate: 'odi',
@@ -419,9 +426,10 @@ async function mensBattingODI(){
 async function mensBattingTest(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/ranking/men',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/ranking/men',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       match_formate: 'test',
@@ -461,9 +469,10 @@ async function mensBattingTest(){
 async function mensTestTeam(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/ranking/men',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/ranking/men',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       match_formate: 'test',
@@ -503,9 +512,10 @@ async function mensTestTeam(){
 async function mensT20Team(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/ranking/men',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/ranking/men',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       match_formate: 't20',
@@ -545,9 +555,10 @@ async function mensT20Team(){
 async function mensODITeam(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/ranking/men',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/ranking/men',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       match_formate: 'odi',
@@ -587,9 +598,10 @@ async function mensODITeam(){
 async function iplPointsTable(){
   const options = {
     method: 'POST',
-    url: 'https://cricket.scoreswift.in/series/pointstable',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/series/pointstable',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       key: "ipl_2024"
@@ -634,9 +646,10 @@ async function fetchDataAndStore() {
   for (const pageNumber of pagesToFetch) {
     const options = {
       method: 'POST',
-      url: 'https://cricket.scoreswift.in/schedule/recent',
+      url: 'https://free-cricket-live-score1.p.rapidapi.com/schedule/recent',
       headers: {
-        "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+        'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+        'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
       },
       data: {
         page_number: pageNumber,
@@ -683,39 +696,25 @@ async function fetchDataAndStore() {
 
 //CRON JOB SCHEDULER
 // Schedule the functions to run at 23:30 daily
-cron.schedule('55 0 * * *', () => {
+// cron.schedule('55 0 */3 * *', () => {
+ 
+//   recentMatch();
+ 
+// }, {
+//   scheduled: true,
+//   timezone: "Asia/Kolkata"
+// });
+
+cron.schedule('0 20 * * *', () => {
   addUpcomingMatch();
-  addAllT20Schedule();
-  recentMatch();
-  mensBattingT20();
-  mensBattingODI();
-  mensBattingTest();
-  mensODITeam();
-  mensT20Team();
-  mensTestTeam();
   iplPointsTable();
-  fetchDataAndStore();
+  recentMatch();
 }, {
   scheduled: true,
-  timezone: "Asia/Kolkata" // Change this to your timezone
+  timezone: "Asia/Kolkata"
 });
 
-cron.schedule('30 19 * * 6-7', () => {
-  addUpcomingMatch();
-  addAllT20Schedule();
-  recentMatch();
-  mensBattingT20();
-  mensBattingODI();
-  mensBattingTest();
-  mensODITeam();
-  mensT20Team();
-  mensTestTeam();
-  iplPointsTable();
-  fetchDataAndStore();
-}, {
-  scheduled: true,
-  timezone: "Asia/Kolkata" // Change this to your timezone
-});
+
 
 var apiKeys = ['88ce5ac1-d5e9-49fc-804a-856b6ca21140','27d09fba-0ba3-434b-b88a-729cc5743e4b', '0e32e845-c5b7-4fcf-9bb5-6a3fad78e2ff','26d8d848-84c6-4b2f-b335-703561ad17d1','bc12b328-160e-4cbd-b4c8-e2c223ddf5d7'];
 
@@ -781,12 +780,11 @@ router.get('/', async function(req, res, next) {
 
   try {
     // Fetch data from external APIs in parallel
-    const [liveScoreResponse, blogResponse] = await Promise.all([
-      axios('https://cricwww.com/api/cricket'),
+    const [blogResponse] = await Promise.all([
       axios('http://45.129.86.137:3000/api/posts?populate=*')
     ]);
 
-    const liveScoreData = liveScoreResponse.data;
+    const liveScoreData = [];
     const blogData = blogResponse.data;
     const postData = blogData.data;
 
@@ -804,12 +802,12 @@ router.get('/', async function(req, res, next) {
     await client.close();
 
     const filteredFixture = data[0].res.matches;
-    const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 'ipl_2024');
+    const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 't20_wc_2024');
 
     // Render the page with optimized data
     res.render('index', {postData, startIndex, endIndex, filteredFixtureData, liveScoreData, user});
   } catch (error) {
-    res.status(500).send('Error: API daily limit exceeded. Please try again later.');
+    res.status(500).send('Please refresh the page or try again after some time.');
     console.error(error);
   }
 });
@@ -942,7 +940,7 @@ router.get('/fixture', async function(req, res) {
        // Access the database and collection
        const database = client.db('cricwwwdb');
        const collection = database.collection('upcoming');
-       const wcupCollection = database.collection('worldcup');
+       const wcupCollection = database.collection('upcoming');
        const recentMatchesCollection = database.collection('recentMatches');
       
       // Fetch data from MongoDB
@@ -1030,12 +1028,11 @@ router.get('/ranking', async function(req, res){
    const iplPointsTablex =  await iplPointsTable.find({}).toArray();
   
    //main variable
-   const iplPoints= await iplPointsTablex[0].res.series.points[0].teams;
+   const iplPoints= await iplPointsTablex[0].res.series.points;
    const wplPoints = []
-
+   
    res.render('statscorner', {wplPoints, iplPoints, user})
  })
-
 
 router.get('/match-table', async (req, res) => {
   const user = await req.user;
@@ -1043,19 +1040,20 @@ router.get('/match-table', async (req, res) => {
   // const allMatch = allMatchResponse.data.data
   const options = {
     method: 'POST',
-    url: ' https://cricket.scoreswift.in/schedule/upcoming',
+    url: 'https://free-cricket-live-score1.p.rapidapi.com/schedule/upcoming',
     headers: {
-      "X-ScoreSwift-Key": "5o4$t-LPhA7i2ruStuDr_v5"
+      'x-rapidapi-key': '344823b5dfmsh8872138f31cf6fdp13652fjsn5dcc71357926',
+      'x-rapidapi-host': 'free-cricket-live-score1.p.rapidapi.com'
     },
     data: {
       page_number: 1,
       match_formate: 'T20',
-      key: 'ipl_2024'
+      key: 't20_wc_2024'
     }
   };
 const response = await axios.request(options);
 const fixtureData = response.data.res.matches
-const filteredFixtureData = fixtureData.filter((item) => item.srsKey === "ipl_2024");
+const filteredFixtureData = fixtureData.filter((item) => item.srsKey === "t20_wc_2024");
   const matches = [];
   const ongoingMatches = await matches.filter(match => match.teams.includes("India") || match.series_id === "76ae85e2-88e5-4e99-83e4-5f352108aebc");
   // const ongoingMatches = await matches.filter(match => match.teams.includes("Ghana") || match.series_id === "fb93b3c0-1a69-4032-81fd-92f0f7b5019d");
@@ -1103,7 +1101,7 @@ res.render('pdata', {comments, recentMatches, user});
 
 })
 
-router.get('/predict-data',isLoggedIn, async (req, res) => {
+router.get('/predict-data', async (req, res) => {
   const user = req.user;
   // Connection URI for MongoDB
   const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
@@ -1129,7 +1127,7 @@ router.get('/predict-data',isLoggedIn, async (req, res) => {
 
 const response = await axios('http://45.129.86.137:3000/api/comments');
 const recentRecord = recent;
-const recentMatches = recentRecord.filter(item => item.srsKey === "mens_t20_wc_2024" || item.srsKey === 'ipl_2024');
+const recentMatches = recentRecord.filter(item => item.srsKey === "t20_wc_2024" || item.srsKey === 'ipl_2024');
 const comments = response.data.data;
 
 res.render('pdata', {comments, recentMatches, user});
@@ -1138,59 +1136,61 @@ res.render('pdata', {comments, recentMatches, user});
 
 router.get('/prediction', async function(req, res) {
   try {
-     
-     const user = req.user; // Assuming the authenticated user is stored in req.user
-     console.log(user)
-     // Connection URI for MongoDB
-     const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
-      
-     // Create a new MongoClient
-     const client = new MongoClient(uri);
-    
+    const user = req.user; // Assuming the authenticated user is stored in req.user
+    console.log(user);
+    // Connection URI for MongoDB
+    const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
+    // Create a new MongoClient
+    const client = new MongoClient(uri);
     // Connect to the MongoDB server
-     await client.connect();
-    
-     // Access the database and collection
-     const database = client.db('cricwwwdb');
-     const collection = database.collection('upcoming');
-     const predict = await axios('http://45.129.86.137:3000/api/comments');
-     const predictData = predict.data.data;
-     const recentMatchesCollection = database.collection('recentMatches');
-   
-
-      // Fetch data from MongoDB
-      const data = await collection.find({}).toArray();
-      const recent = await recentMatchesCollection.find({}).toArray();
-
-      // Close the connection to the MongoDB server
-       await client.close();
-
-       const filteredFixture = data[0].res.matches
-       const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 'ipl_2024');
-
-      const teamone = filteredFixtureData[0].teams.t1.sName;
-      const teamtwo = filteredFixtureData[0].teams.t2.sName;
-
-
-      //prediction data
-  const prediction = await axios('http://45.129.86.137:3000/api/comments?populate=*')
-  const pdata = prediction.data.data;
-  //result of  match
-  const recentRecord = recent[0].res.matches;
-
-  //file system  of  ipl results 2024
-   // Read data from local JSON file
-   const filePath = path.join(__dirname, '../public/api/matchresults.json');
-   const fsdata = fs.readFileSync(filePath, 'utf8');
-   const jsonData = JSON.parse(fsdata);
-
-
-      res.render('prediction', {filteredFixtureData, teamone, teamtwo, predictData, user, recentMatches:jsonData, pdata});
+    await client.connect();
+    // Access the database and collection
+    const database = client.db('cricwwwdb');
+    const collection = database.collection('upcoming');
+    const predict = await axios('http://45.129.86.137:3000/api/comments');
+    const predictData = predict.data.data;
+    const recentMatchesCollection = database.collection('recentMatches');
+    // Fetch data from MongoDB
+    const data = await collection.find({}).toArray();
+    const recent = await recentMatchesCollection.find({}).toArray();
+    // Close the connection to the MongoDB server
+    await client.close();
+    const filteredFixture = data[0].res.matches;
+    const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 't20_wc_2024');
+    let teamone, teamtwo; // Declare variables outside the if block
+    if (filteredFixtureData.length > 0 && filteredFixtureData[0].teams && filteredFixtureData[0].teams.t1 && filteredFixtureData[0].teams.t2) {
+      teamone = filteredFixtureData[0].teams.t1.sName;
+      teamtwo = filteredFixtureData[0].teams.t2.sName;
+      console.log("TEAMS: ", teamone, teamtwo);
+    } else {
+      console.log("Invalid or incomplete fixture data.");
+    }
+    //prediction data
+    const prediction = await axios('http://45.129.86.137:3000/api/comments?populate=*');
+    const pdata = prediction.data.data;
+    //result of  match
+    const recentRecord = recent[0].res.matches;
+    //file system  of  ipl results 2024
+    // Read data from local JSON file
+    const filePath = path.join(__dirname, '../public/api/matchresults.json');
+    const fsdata = fs.readFileSync(filePath, 'utf8');
+    const jsonData = JSON.parse(fsdata);
+    res.render('prediction', {
+      filteredFixtureData,
+      teamone,
+      teamtwo,
+      predictData,
+      user,
+      recentMatches: jsonData,
+      pdata
+    });
   } catch (error) {
     console.error("Error fetching data from MongoDB:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({
+      error: "Internal server error"
+    });
   }
- })
+})
 
 
 router.get('/mode', async function(req, res) {
@@ -1206,8 +1206,7 @@ router.get('/cric-home', async function(req, res, next) {
 
  try {
     const iplMatch = await axios(`https://api.cricapi.com/v1/currentMatches?apikey=${apiKey}&offset=0`);
-    const liveScore = await axios('https://cricwww.com/api/cricket');
-    const liveScoreData = liveScore.data;
+    const liveScoreData = [];
   
    
     var matches = await iplMatch.data.data;
@@ -1240,7 +1239,7 @@ const data = await collection.find({}).toArray();
 await client.close();
 
 const filteredFixture = data[0].res.matches
-const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 'ipl_2024');
+const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 't20_wc_2024');
     
 //-----------------------------------------------------------------------------------
 
@@ -1279,7 +1278,7 @@ const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 'ipl_
    res.render('./replica/home', {postData, startIndex, endIndex, recentMatch, commentsReponse, filteredFixtureData, liveScoreData, user})
    // res.render('index', { blogData });
  } catch (error) {
-   res.status(500).send('Error: API daily limit exceeded. Please try again later.'); // Or a more informative message
+   res.status(500).send('Please refresh the page or try again after some time.'); // Or a more informative message
    console.error(error); // Handle errors gracefully (e.g., send an error page)
  }
 });
@@ -1299,7 +1298,7 @@ router.get('/cric-fixture', async function(req, res) {
        // Access the database and collection
        const database = client.db('cricwwwdb');
        const collection = database.collection('upcoming');
-       const wcupCollection = database.collection('worldcup');
+       const wcupCollection = database.collection('upcoming');
        const recentMatchesCollection = database.collection('recentMatches');
       
       // Fetch data from MongoDB
@@ -1420,7 +1419,7 @@ router.get('/cric-fixture', async function(req, res) {
        await client.close();
 
        const filteredFixture = data[0].res.matches
-       const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 'ipl_2024');
+       const filteredFixtureData = filteredFixture.filter(item => item.srsKey === 't20_wc_2024');
 
       const teamone = filteredFixtureData[0].teams.t1.sName;
       const teamtwo = filteredFixtureData[0].teams.t2.sName;
@@ -1432,7 +1431,7 @@ router.get('/cric-fixture', async function(req, res) {
   }
  })
 
-router.get('/cric-predict-data',isLoggedInRep, async (req, res) => {
+router.get('/cric-predict-data', async (req, res) => {
   const user = req.user;
   // Connection URI for MongoDB
   const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
@@ -1458,7 +1457,7 @@ router.get('/cric-predict-data',isLoggedInRep, async (req, res) => {
 
 const response = await axios('http://45.129.86.137:3000/api/comments');
 const recentRecord = recent;
-const recentMatches = recentRecord.filter(item => item.srsKey === "mens_t20_wc_2024" || item.srsKey === 'ipl_2024');
+const recentMatches = recentRecord.filter(item => item.srsKey === "t20_wc_2024" || item.srsKey === 'ipl_2024');
 const comments = response.data.data;
 
 res.render('./replica/rep-pdata', {comments, recentMatches, user});
@@ -1841,4 +1840,70 @@ res.send(jsonData)
 
 })
 
+router.get('/recent-plays', async (req, res) => {
+  try {
+    const user = await req.user;
+    // Connection URI for MongoDB
+    const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
+    
+     // Create a new MongoClient
+     const client = new MongoClient(uri);
+    
+    // Connect to the MongoDB server
+     await client.connect();
+    
+     // Access the database and collection
+     const database = client.db('cricwwwdb');
+     const recentMatchesCollection = database.collection('recentMatches');
+     const recent = await recentMatchesCollection.find({}).toArray();
+    
+     // Close the connection to the MongoDB server
+     await client.close();
+         
+      const recentRecord = recent[0].res.matches;
+      const recentMatches = recentRecord.filter(item => item.srsKey === "t20_wc_2024" || item.srsKey === 'ipl_2024');
+     // Send the fetched data as JSON in the response
+     const response = await axios('http://45.129.86.137:3000/api/comments');
+     const comments = response.data.data;
+
+     res.render('recentplays', {recentMatches, user, comments})
+ } catch (error) {
+     console.error("Error fetching data from MongoDB:", error);
+     res.status(500).json({ error: "Internal server error" });
+ }
+})
+
+
+router.get('/cric-recent-plays', async (req, res) => {
+  try {
+    const user = await req.user;
+    // Connection URI for MongoDB
+    const uri = "mongodb+srv://useretheharsh2211:kDeRLJIEezx8yYGB@cluster0.7fob7mc.mongodb.net/";
+    
+     // Create a new MongoClient
+     const client = new MongoClient(uri);
+    
+    // Connect to the MongoDB server
+     await client.connect();
+    
+     // Access the database and collection
+     const database = client.db('cricwwwdb');
+     const recentMatchesCollection = database.collection('recentMatches');
+     const recent = await recentMatchesCollection.find({}).toArray();
+    
+     // Close the connection to the MongoDB server
+     await client.close();
+         
+      const recentRecord = recent[0].res.matches;
+      const recentMatches = recentRecord.filter(item => item.srsKey === "t20_wc_2024" || item.srsKey === 'ipl_2024');
+     // Send the fetched data as JSON in the response
+     const response = await axios('http://45.129.86.137:3000/api/comments');
+     const comments = response.data.data;
+
+     res.render('./replica/rep-recentmatch', {recentMatches, user, comments})
+ } catch (error) {
+     console.error("Error fetching data from MongoDB:", error);
+     res.status(500).json({ error: "Internal server error" });
+ }
+})
 module.exports = router;

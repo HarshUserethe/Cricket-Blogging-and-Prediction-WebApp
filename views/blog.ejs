@@ -1,7 +1,8 @@
-<%- include('partials/top-partials.ejs') %>
-<title>CricWWW - Blog</title>
-<meta name="description" content="Read insightful cricket match predictions and analysis by experts on Who Will Win's blog. Stay informed with detailed forecasts and in-depth commentary on upcoming games.">
-
+<title><%= singlePost.attributes.Title %></title>
+<%- include('partials/blogNav.ejs') %>
+<meta name="title" content="<%= singlePost.attributes.metaTitle %>">
+<meta name="description" content="<%= singlePost.attributes.metaDescription %>">
+<meta name="keywords" content="">
 
 <style>
     @media only screen and (max-width: 900px) {
@@ -15,7 +16,7 @@
         <div class="headline"><h3 style="text-align: left; font-size: 2.5vw; text-transform: capitalize;"><%=singlePost.attributes.Title%></h3></div>
         <hr>
         <div class="blog-img">
-            <img src="<%=singlePost.attributes.imgUrl%>" class="img-fluid" alt="...">
+            <img src="<%=singlePost.attributes.imgUrl%>" class="img-fluid" alt="<%= singlePost.attributes.imageAlt %>">
             <div class="image-title"><p style="text-transform: capitalize; color: rgba(0, 0, 0, 0.61);"><%=singlePost.attributes.subtitle%><</p></div>
         </div>
         <div class="blog-writeup" style="font-size: 1.5vw;">

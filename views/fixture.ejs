@@ -12,13 +12,13 @@
     }
 </style>
 
-<div class="blog-fullPage" style="padding: 25px; display: flex; flex-direction: column; padding-top:80px; gap: 25px;">
+<div class="blog-fullPage" style="padding: 25px; display: flex; flex-direction: column; padding-top:80px; gap: 10px;">
   
     <div class="switch" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 40px;">
         <button id="wplBtn" style="display: none;">WPL</button>
-        <button id="iplBtn">IPL</button>
-        <button id="wcup">T20WC</button>
+        <button id="wcup" style="background-color: navy;">T20WC</button>
         <button id="rec">RECENT</button>
+        <button id="iplBtn" disabled style="background-color: gray !important; display: none;" >IPL 2024</button>
     </div>
 
     <div class="ipl">
@@ -164,13 +164,16 @@
     <% }) %>
    </div>
 
-   <div class="worldCupData" style="display: none !important;">
-    <% worldCupMatches.forEach((fix) => {
+   <div class="worldCupData" style="display: initial !important;">
+    <% const currentTime = Math.floor(Date.now() / 1000); %>
+    <% worldCupMatches.filter(item => item.time > currentTime).forEach((fix) => {
+        
         // Convert UNIX timestamp to milliseconds and then to a Date object
         const dateTime = new Date(fix.time * 1000);
         
         // Format the date and time
         const formattedDateTime = `${dateTime.getHours().toString().padStart(2, '0')}:${dateTime.getMinutes().toString().padStart(2, '0')}, ${dateTime.getDate()} ${dateTime.toLocaleString('default', { month: 'short' })} ${dateTime.getFullYear().toString().slice(2)}`;
+    
     
         // Map team names to image links
         const teamImageLinks = {
@@ -214,7 +217,7 @@
     
             <div class="status" style="text-align: center; width: 40%;">
                 <div class="match-status" style="font-size: 2vw; font-weight: 600; color: goldenrod"><%= fix.matchStatus %></div>
-                <div class="match-time" style="font-size: 1.4vw; color: maroon; font-weight: 600; text-transform: uppercase;"><%= formattedDateTime %></div>
+                <div class="match-time" style="font-size: 1.4vw; color: maroon; font-weight: 600; text-transform: uppercase;"><%=formattedDateTime%></div>
                 <div class="match-type" style="font-size: 1.4vw; color: grey; text-transform: uppercase;"><%= fix.srs %></div>
                 <div class="place" style="font-size: 1.2vw; color: rgba(128, 128, 128, 0.795); text-transform: uppercase;">
                     <% var venue = fix.venue.slice(0, 20); %>
@@ -275,6 +278,26 @@
             "RCB": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rcb_zcimbz.jpg",
             "CSK": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/csk_umypzx.jpg",
             "SRH": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/srh_qdnr6s.jpg",
+            "IND": "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png",
+            "PAK": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg",
+            "IRE": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg",
+            "CAN": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg",
+            "USA": "https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg",
+            "ENG": "https://cdn.britannica.com/44/344-004-494CC2E8/Flag-England.jpg",
+            "AUS": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg",
+            "NAM": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Namibia.svg/1200px-Flag_of_Namibia.svg.png",
+            "SCO": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png",
+            "NZ": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_New_Zealand.svg/1200px-Flag_of_New_Zealand.svg.png",
+            "WI": "https://static.vecteezy.com/system/resources/previews/024/286/508/non_2x/illustration-of-west-indies-flag-design-vector.jpg",
+            "AFG": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg",
+            "UGA": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flag_of_Uganda.svg/800px-Flag_of_Uganda.svg.png",
+            "PNG": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Flag_of_Papua_New_Guinea.svg/1200px-Flag_of_Papua_New_Guinea.svg.png",
+            "RSA": "https://cdn.britannica.com/27/4227-004-32423B42/Flag-South-Africa.jpg",
+            "SL": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Flag_of_Sri_Lanka.svg/1200px-Flag_of_Sri_Lanka.svg.png",
+            "BAN": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Flag_of_Bangladesh.svg/1200px-Flag_of_Bangladesh.svg.png",
+            "NED": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/255px-Flag_of_the_Netherlands.svg.png",
+            "NEP": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/1200px-Flag_of_Nepal.svg.png",
+            "OMN": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/800px-Flag_of_Oman.svg.png",
             // Add mappings for other teams as needed
         };
     
@@ -332,7 +355,7 @@
     var recData = document.querySelector(".recData");
 
     iplBtn.addEventListener("click", function(){
-        iplBtn.style.backgroundColor = "navy"
+        
         iplBtn.style.color = "#fff"
         iplData.style.display = "initial"
         wplData.style.display = "none"
@@ -346,7 +369,7 @@
         recData.style.display = "none"
     })
     wplBtn.addEventListener("click", function(){
-        iplBtn.style.backgroundColor = "#000"
+        
         iplBtn.style.color = "#fff"
         wplData.style.display = "initial"
         iplData.style.display = "none"
@@ -361,7 +384,7 @@
     wcup.addEventListener("click", function(){
         wcup.style.backgroundColor = "navy"
         wcup.style.color = "#fff"
-        iplBtn.style.backgroundColor = "#000"
+        
         iplBtn.style.color = "#fff"
         wplData.style.display = "none"
         iplData.style.display = "none"
@@ -378,7 +401,7 @@
         recBtn.style.color = "#fff"
         wcup.style.backgroundColor = "#000"
         wcup.style.color = "#fff"
-        iplBtn.style.backgroundColor = "#000"
+        
         iplBtn.style.color = "#fff"
         wplData.style.display = "none"
         iplData.style.display = "none"

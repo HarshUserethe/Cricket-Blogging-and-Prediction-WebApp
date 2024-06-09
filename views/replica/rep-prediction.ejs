@@ -19,13 +19,17 @@
 
 </script>
 <div class="blog-fullPage" id="pbg" style="padding-top: 5vw; display: flex; flex-direction: column;">
- <% if(!user) { %>
+ <!-- <% if(!user) { %>
     <div class="blur-container">
         <div class="b-content">
             <div class="lock-icon"><i class="ri-lock-2-fill"></i></div>
             <h4 style="color: #fff;">Today's Match Prediction</h4>
             <p class="bp" style="color: #ffffffc7;">Unlock the full potential of your experience by logging in to your account. Gain access to premium features tailored just for you. Your journey awaits beyond this login page.</p>
-            <a href="/cric-login"><button id="b-login">Login</button></a>
+            
+            <div class="cw-btn-bunch">
+                <a href="/cric-login"><button id="b-login">Login</button></a>
+                <a href="/cric-recent-plays"><button id="cw-rec-button">Recent Match</button></a>
+              </div>
         </div>
         <div class="blur-page"></div>
       </div>
@@ -33,7 +37,7 @@
     <div class="page-title">
         TODAY'S MATCH PREDICTION
     </div>
- <%}%>
+ <%}%> -->
     <div class="todays-prediction" id="prediction-banner">
         
         <div class="head-tl" style="width: 100%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 2vw; padding: 10px;"></div>
@@ -52,6 +56,26 @@
                 "CSK": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/csk_umypzx.jpg",
                 "SRH": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/srh_qdnr6s.jpg",
                 // Add mappings for other teams as needed
+                "IND": "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png",
+                "PAK": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg",
+                "IRE": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg",
+                "CAN": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg",
+                "USA": "https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg",
+                "ENG": "https://cdn.britannica.com/44/344-004-494CC2E8/Flag-England.jpg",
+                "AUS": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg",
+                "NAM": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Namibia.svg/1200px-Flag_of_Namibia.svg.png",
+                "SCO": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png",
+                "NZ": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_New_Zealand.svg/1200px-Flag_of_New_Zealand.svg.png",
+                "WI": "https://static.vecteezy.com/system/resources/previews/024/286/508/non_2x/illustration-of-west-indies-flag-design-vector.jpg",
+                "AFG": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg",
+                "UGA": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flag_of_Uganda.svg/800px-Flag_of_Uganda.svg.png",
+                "PNG": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Flag_of_Papua_New_Guinea.svg/1200px-Flag_of_Papua_New_Guinea.svg.png",
+                "RSA": "https://cdn.britannica.com/27/4227-004-32423B42/Flag-South-Africa.jpg",
+                "SL": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Flag_of_Sri_Lanka.svg/1200px-Flag_of_Sri_Lanka.svg.png",
+                "BAN": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Flag_of_Bangladesh.svg/1200px-Flag_of_Bangladesh.svg.png",
+                "NED": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/255px-Flag_of_the_Netherlands.svg.png",
+                "NEP": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/1200px-Flag_of_Nepal.svg.png",
+                "OMN": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/800px-Flag_of_Oman.svg.png",
             };
     
             const t1ImageLink = Links[filteredFixtureData[0].teams.t1.sName] || "https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg"; // Default link if team name not found
@@ -112,7 +136,7 @@
    <div class="reason">
     <% predictData.forEach((prediction) => { %>
      <% if(prediction.attributes.commentary && prediction.attributes.match_id === filteredFixtureData[0]._id){ %> 
-       <a href="/blog/<%=prediction.attributes.com_id%>" style="color: #000 !important;"><span style="font-weight: bold; color: #000;">Experts Opinion: </span> <%=prediction.attributes.commentary%></a>
+       <a href="/cric-blog/<%=prediction.attributes.com_id%>" style="color: #000 !important;"><span style="font-weight: bold; color: #000;">Experts Opinion: </span> <%=prediction.attributes.commentary%></a>
     <% } else {%>
         <span style="font-weight: bold; color: #000;"></span>
      <%}%>
@@ -136,6 +160,26 @@
             "CSK": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/csk_umypzx.jpg",
             "SRH": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/srh_qdnr6s.jpg",
             // Add mappings for other teams as needed
+            "IND": "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png",
+            "PAK": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg",
+            "IRE": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg",
+            "CAN": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg",
+            "USA": "https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg",
+            "ENG": "https://cdn.britannica.com/44/344-004-494CC2E8/Flag-England.jpg",
+            "AUS": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg",
+            "NAM": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Namibia.svg/1200px-Flag_of_Namibia.svg.png",
+            "SCO": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png",
+            "NZ": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_New_Zealand.svg/1200px-Flag_of_New_Zealand.svg.png",
+            "WI": "https://static.vecteezy.com/system/resources/previews/024/286/508/non_2x/illustration-of-west-indies-flag-design-vector.jpg",
+            "AFG": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg",
+            "UGA": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flag_of_Uganda.svg/800px-Flag_of_Uganda.svg.png",
+            "PNG": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Flag_of_Papua_New_Guinea.svg/1200px-Flag_of_Papua_New_Guinea.svg.png",
+            "RSA": "https://cdn.britannica.com/27/4227-004-32423B42/Flag-South-Africa.jpg",
+            "SL": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Flag_of_Sri_Lanka.svg/1200px-Flag_of_Sri_Lanka.svg.png",
+            "BAN": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Flag_of_Bangladesh.svg/1200px-Flag_of_Bangladesh.svg.png",
+            "NED": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/255px-Flag_of_the_Netherlands.svg.png",
+            "NEP": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/1200px-Flag_of_Nepal.svg.png",
+            "OMN": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/800px-Flag_of_Oman.svg.png",
         };
     
         const team1ImageLink = teamImageLinks[item.teams.t1.sName] || "https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg"; // Default link if team name not found
@@ -155,7 +199,7 @@
                     </div>
                  </div>
             </div>
-            <img id="series" src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/1200px-Indian_Premier_League_Official_Logo.svg.png" alt="">
+            <img id="series" src="https://i.pinimg.com/736x/b9/89/d0/b989d0b72df2bc8fd449c387773e9516.jpg" alt="">
             <div class="r-side">
                 <div class="date" style="font-size: 1.4vw; font-weight: bold;">
                     <% 
@@ -167,21 +211,21 @@
                 <%= formattedDate %>
                 </div>
                 <div class="time" style="font-size: 1.6vw;">
-                    <% 
-                    var timeString = "7:30 PM"; // Original time string
-                    var timeParts = timeString.split(':'); // Splitting hours and minutes
-                    var hours = parseInt(timeParts[0]); // Extracting hours
-                    var minutes = parseInt(timeParts[1].split(' ')[0]); // Extracting minutes
-                    var meridiem = timeParts[1].split(' ')[1]; // Extracting AM/PM
-                    
-                    // Adjusting hours if PM
-                    if (meridiem === "PM" && hours < 12) {
-                        hours += 12;
-                    }
-                    
-                    // Formatting hours and minutes
-                    var formattedTime = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2);
-                    %> <%= formattedTime %> 
+                    <%
+                    var timestamp = item.time; // Unix timestamp
+                    var unix_timestamp = timestamp;
+                    var date = new Date(unix_timestamp * 1000); // Convert to milliseconds
+                
+                    // Adjust to IST (UTC+5:30)
+                    date.setHours(date.getUTCHours() + 5);
+                    date.setMinutes(date.getUTCMinutes() + 30);
+                
+                    var hours = date.getHours().toString().padStart(2, '0'); // Get hours and pad with leading zero if necessary
+                    var minutes = date.getMinutes().toString().padStart(2, '0'); // Get minutes and pad with leading zero if necessary
+                    var timeString = hours + ':' + minutes; // Concatenate hours and minutes
+                %>
+                
+                <%= timeString %>
                 </div>
                 <div class="match-number" style="font-weight: bold;"><%=item.matchSuffix%></div>
             </div>
@@ -190,7 +234,16 @@
 </div>
 
 </div>
+<script>
+    var is_iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+if (is_iOS) {
+    document.body.classList.add('ios-device');
+    document.querySelector('.navbar').style.position = 'relative';
+    document.querySelector('.navbar').style.paddingTop = '12vw';
+    document.querySelector('.heading').style.display = 'none';
+}
 
+ </script>
 <script>
 
 document.addEventListener("DOMContentLoaded", function() {

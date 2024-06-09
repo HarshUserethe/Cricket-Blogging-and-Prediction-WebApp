@@ -1,0 +1,314 @@
+<title>Recent plays</title>
+<meta name="description" content="Get expert predictions and opinions for every IPL match on Who Will Win. Stay ahead with insightful analysis and forecasts for Indian Premier League games.">
+<%- include('../partials/repBar.ejs') %>
+
+<style>
+    .logo>img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .match-info{
+        align-items: center !important ;
+        justify-content: center !important;
+    }
+    @media only screen and (min-width: 901px) {
+        .cw-trophy{
+        width: 5vw !important;
+        height: 5vw !important;
+    }
+    .cw-franchise{
+        width: 5vw !important;
+        height: 5vw !important;
+    }
+    .cw-vs{
+        color: maroon !important;
+    }
+    .cw-s{
+        font-size: 1.1vw !important;
+        color: #000 !important;
+    }
+    .cw-m-vs{
+        gap: 0px !important;
+    }
+    .cw-prediction{
+        padding-left:  3vw;
+        padding-right: 3vw;
+        margin-top: 20px;
+        background: #fff !important;
+    }
+    .cw-teamname{
+        color: #000;
+        font-weight: bold;
+
+    }
+ 
+    }
+    .ww{
+        display: none !important;
+    }
+    .cw-prediction{
+        padding-left:  3vw;
+        padding-right: 3vw;
+        background: #fff !important;
+    }
+    .cw-teamname{
+        color: #000;
+        font-weight: bold;
+
+    }
+    .cw-vs{
+        color: maroon !important;
+    }
+    .cw-s{
+        color: #000 !important;
+    }
+    .cw-m-vs{
+        gap: 0px !important;
+    }
+
+</style>
+
+<div class="blog-fullPage" style="padding: 25px; display: flex; flex-direction: column; padding-top:80px; gap: 25px;">
+  
+    <div class="switch" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 40px;">
+        <button id="iplBtn">RECENT MATCHES</button>
+        <button id="rec">LAST PREDICTIONS</button>
+    </div>
+
+    <!-- RECENT MATCHES IS HERE -->
+    <div class="ipl">
+        <% recentMatches.forEach((fix) => {
+
+            // Mapping of full team names to abbreviated names
+            const teamAbbreviations = {
+                "Chennai Super Kings": "CSK",
+                "Royal Challengers Bengaluru": "RCB",
+                "Mumbai Indians": "MI",
+                "Kolkata Knight Riders": "KKR",
+                "Punjab Kings": "PBKS",
+                "Rajasthan Royals": "RR",
+                "Delhi Capitals": "DC",
+                "Sunrisers Hyderabad": "SRH",
+                "Lucknow Super Giants": "LSG",
+                "Gujarat Titans": "GT"
+                // Add mappings for other teams as needed
+            };
+    
+            // Get abbreviated team names
+                const team1Abbreviation = teamAbbreviations[fix.teams.t1.name] || fix.teams.t1.name;
+                const team2Abbreviation = teamAbbreviations[fix.teams.t2.name] || fix.teams.t2.name;
+    
+            // Convert UNIX timestamp to milliseconds and then to a Date object
+            const dateTime = new Date(fix.time * 1000);
+            
+            // Format the date and time
+            const formattedDateTime = `${dateTime.getHours().toString().padStart(2, '0')}:${dateTime.getMinutes().toString().padStart(2, '0')}, ${dateTime.getDate()} ${dateTime.toLocaleString('default', { month: 'short' })} ${dateTime.getFullYear().toString().slice(2)}`;
+        
+            // Map team names to image links
+            const teamImageLinks = {
+                "KKR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/kkr_vryic9.jpg",
+                "PBKS": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/pbks_gqjclw.jpg",
+                "LSG": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/lsg_jdhwjt.jpg",
+                "GT": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/gt_ymrdg0.jpg",
+                "MI": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/mi_vj4a2v.jpg",
+                "RR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rr_s7vm3w.jpg",
+                "DC": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/dc_x5e4nu.jpg",
+                "RCB": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rcb_zcimbz.jpg",
+                "CSK": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/csk_umypzx.jpg",
+                "SRH": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/srh_qdnr6s.jpg",
+                // Add mappings for other teams as needed
+                "IND": "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png",
+                "PAK": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg",
+                "IRE": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg",
+                "CAN": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg",
+                "USA": "https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg",
+                "ENG": "https://cdn.britannica.com/44/344-004-494CC2E8/Flag-England.jpg",
+                "AUS": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg",
+                "NAM": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Namibia.svg/1200px-Flag_of_Namibia.svg.png",
+                "SCO": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png",
+                "NZ": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_New_Zealand.svg/1200px-Flag_of_New_Zealand.svg.png",
+                "WI": "https://static.vecteezy.com/system/resources/previews/024/286/508/non_2x/illustration-of-west-indies-flag-design-vector.jpg",
+                "AFG": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg",
+                "UGA": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flag_of_Uganda.svg/800px-Flag_of_Uganda.svg.png",
+                "PNG": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Flag_of_Papua_New_Guinea.svg/1200px-Flag_of_Papua_New_Guinea.svg.png",
+                "RSA": "https://cdn.britannica.com/27/4227-004-32423B42/Flag-South-Africa.jpg",
+                "SL": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Flag_of_Sri_Lanka.svg/1200px-Flag_of_Sri_Lanka.svg.png",
+                "BAN": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Flag_of_Bangladesh.svg/1200px-Flag_of_Bangladesh.svg.png",
+                "NED": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/255px-Flag_of_the_Netherlands.svg.png",
+                "NEP": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/1200px-Flag_of_Nepal.svg.png",
+                "OMN": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/800px-Flag_of_Oman.svg.png",
+            };
+        
+            const team1ImageLink = teamImageLinks[fix.teams.t1.sName] || "https://t4.ftcdn.net/jpg/04/99/62/59/360_F_499625910_ghBBxV9RsHAWLQVPJdTpF49ioBP9ak1Z.jpg"; // Default link if team name not found
+            const team2ImageLink = teamImageLinks[fix.teams.t2.sName] || "https://t4.ftcdn.net/jpg/04/99/62/59/360_F_499625910_ghBBxV9RsHAWLQVPJdTpF49ioBP9ak1Z.jpg"; // Default link if team name not found
+            
+        %>
+            <div class="fixture">
+                <div class="first" style=" width: 30%;">
+                    <div class="logo teamLogo" style="width: 5vw; height: 5vw;"><img src="<%= team1ImageLink %>" alt=""></div>
+                    <div class="match-info" style="text-align: left; display: flex; flex-direction: column; align-items: left;">
+                        <span class="teamName" style="font-size: 1.5vw; width: 100%;"><%= team1Abbreviation %></span>
+                        <div class="other">
+                            <span class="score" id="innings"></span>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="status" style="text-align: center; width: 40%;">
+                    <div class="match-status" style="font-size: 2vw; font-weight: 600; color: goldenrod"><%= fix.matchStatus %></div>
+                    <div class="match-time" style="font-size: 1.4vw; color: maroon; font-weight: 600; text-transform: uppercase;"><%= formattedDateTime %></div>
+                    <div class="results" style="font-weight: bold;">
+                        <% if (fix.result && fix.result.message) { %>
+                            <%= fix.result.message %>
+                          <% } else { %>
+                            pending...
+                          <% } %>
+                    </div>
+                    <div class="match-type" style="font-size: 1.4vw; color: grey; text-transform: uppercase;"><%= fix.srs %></div>
+                    <div class="place" style="font-size: 1.2vw; color: rgba(128, 128, 128, 0.795); text-transform: uppercase;"><%= fix.venue %></div>
+                </div>
+        
+                <div class="first" style=" width: 30%; display: flex; flex-direction: row; justify-content: right;">
+                    <div class="match-info" style="text-align: right; display: flex; flex-direction: column; align-items: right">
+                        <span class="teamName" style="font-size: 1.5vw; width: 100%;"><%= team2Abbreviation %></span>
+                        <div class="other">
+                            <span class="score" id="innings"></span>
+                        </div>
+                    </div>
+                    <div class="logo teamLogo" style="width: 5vw; height: 5vw;"><img src="<%= team2ImageLink %>" alt=""></div>
+                </div>
+            </div>
+        <% }) %>
+       </div>      
+   </div>
+
+    <!-- OUR LAST PREDICTION IS HERE -->
+<div class="recData" style="display: none !important;">
+    <%
+    // Map team names to image links
+    const Links = {
+        "KKR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/kkr_vryic9.jpg",
+            "PBKS": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/pbks_gqjclw.jpg",
+            "LSG": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/lsg_jdhwjt.jpg",
+            "GT": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/gt_ymrdg0.jpg",
+            "MI": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/mi_vj4a2v.jpg",
+            "RR": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rr_s7vm3w.jpg",
+            "DC": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/dc_x5e4nu.jpg",
+            "RCB": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/rcb_zcimbz.jpg",
+            "CSK": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815339/csk_umypzx.jpg",
+            "SRH": "https://res.cloudinary.com/ds2sxjbkb/image/upload/v1711815338/srh_qdnr6s.jpg",
+            "IND": "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png",
+            "PAK": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg",
+            "IRE": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg",
+            "CAN": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg",
+            "USA": "https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg",
+            "ENG": "https://cdn.britannica.com/44/344-004-494CC2E8/Flag-England.jpg",
+            "AUS": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg",
+            "NAM": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Namibia.svg/1200px-Flag_of_Namibia.svg.png",
+            "SCO": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_Scotland.svg/1200px-Flag_of_Scotland.svg.png",
+            "NZ": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_New_Zealand.svg/1200px-Flag_of_New_Zealand.svg.png",
+            "WI": "https://static.vecteezy.com/system/resources/previews/024/286/508/non_2x/illustration-of-west-indies-flag-design-vector.jpg",
+            "AFG": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg",
+            "UGA": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flag_of_Uganda.svg/800px-Flag_of_Uganda.svg.png",
+            "PNG": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Flag_of_Papua_New_Guinea.svg/1200px-Flag_of_Papua_New_Guinea.svg.png",
+            "RSA": "https://cdn.britannica.com/27/4227-004-32423B42/Flag-South-Africa.jpg",
+            "SL": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Flag_of_Sri_Lanka.svg/1200px-Flag_of_Sri_Lanka.svg.png",
+            "BAN": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Flag_of_Bangladesh.svg/1200px-Flag_of_Bangladesh.svg.png",
+            "NED": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/255px-Flag_of_the_Netherlands.svg.png",
+            "NEP": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/1200px-Flag_of_Nepal.svg.png",
+            "OMN": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/800px-Flag_of_Oman.svg.png",
+    };
+    
+    // Function to get image link for team
+    function getImageLink(teamName) {
+        return Links[teamName] || "https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg"; // Default link if team name not found
+    }
+    
+    recentMatches.forEach(match => {
+        comments.forEach(comment => {
+            if (match._id === comment.attributes.match_id) {
+    %>
+    <div class="todays-prediction cw-prediction" style="height: 45vw; border-bottom: 1px solid #fff;">
+        <div class="head-tl" style="width: 100%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 2vw; padding: 10px;"></div>
+        <div class="other-content">
+            <div class="Tbox">
+                <% if(comment.attributes.Team1 === true){ %>
+                <div class="ww cw-trophy" style="width: 8vw; height: 8vw;"><img src="/images/trophy.png" alt=""></div>
+                <% } %>
+                <div class="franchise cw-franchise"><img src="<%= getImageLink(match.teams.t1.sName) %>" alt=""></div>
+                <div class="team-name cw-teamname"><%= match.teams.t1.sName %></div>
+            </div>
+            <div class="vs cw-m-vs">
+                <!-- <div class="sign"><img src="images/vs.png" alt="vs"></div> -->
+                <div class="v-s cw-vs">VS</div>
+                <div class="date"></div>
+                <div class="status cw-s"><%=match.matchSuffix %></div>
+                <div class="status cw-s"><%= match.result ? match.result.message : '' %></div> <!-- Check if match.result exists -->
+                <!-- <div class="opinion">Prediction:<%=comment.attributes.commentary %></div> -->
+                <div class="status cw-s cw-p"><span class="cw-span" style="color: yellow;"><a class="status"  href="/blog/<%=comment.attributes.com_id%>" style="color: maroon !important;">Prediction: </a></span ><%= comment.attributes.commentary %></div>
+            </div>
+            <div class="Tbox">
+                <% if(comment.attributes.Team2 === true){ %>
+                <div class="ww cw-trophy" style="margin-left: -10vw !important; width: 5vw; height: 8vw;"><img src="/images/trophy.png" alt=""></div>
+                <% } %>
+                <div class="franchise cw-franchise"><img src="<%= getImageLink(match.teams.t2.sName) %>" alt=""></div>
+                <div class="team-name cw-teamname"><%= match.teams.t2.sName %></div>
+            </div>
+        </div>
+    </div>
+    <%
+            }
+        });
+    });
+    %>
+    </div>
+</div>
+
+<script>
+    var iplData = document.querySelector('.ipl');
+    var iplBtn = document.querySelector("#iplBtn");
+    var recBtn = document.querySelector("#rec");
+    var recData = document.querySelector(".recData");
+
+    iplBtn.addEventListener("click", function(){
+        iplBtn.style.backgroundColor = "navy"
+        iplBtn.style.color = "#fff"
+        iplData.style.display = "initial"
+        recBtn.style.backgroundColor = "#000"
+        recBtn.style.color = "#fff"
+        recData.style.display = "none"
+    })
+
+    recBtn.addEventListener("click", function(){
+        recData.style.display = "initial"
+        recBtn.style.backgroundColor = "navy"
+        recBtn.style.color = "#fff"
+        iplBtn.style.backgroundColor = "#000"
+        iplBtn.style.color = "#fff"
+        iplData.style.display = "none"
+        console.log("REC")
+    })
+
+</script>
+
+<script>
+
+    var homeButton = document.getElementById('homeNav');
+    
+    homeButton.addEventListener("click", function(){
+      console.log("CLIKED")
+      document.querySelector('.loading-spinner').style.display = 'block';  
+      document.querySelector('#b-login').style.display = 'none'; 
+      document.querySelector('.lock-icon>i ').style.display = 'none';  
+      
+    })
+    
+     window.addEventListener('load', function() {
+      // Page has finished loading, hide the loading spinner
+      document.querySelector('.loading-spinner').style.display = 'none';  
+    });
+    </script>
+
+
+<%- include('../partials/rep-footer.ejs') %>

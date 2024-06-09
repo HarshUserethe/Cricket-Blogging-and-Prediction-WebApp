@@ -29,7 +29,7 @@
 <div class="blog-fullPage">
 
      <!-- ipl points table -->
-     <div class="wpl-standings">
+     <div class="wpl-standings" style="display: none;">
         <div class="title-space" style=" border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
             <div class="match-logo">
                 <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/1200px-Indian_Premier_League_Official_Logo.svg.png" alt="">
@@ -83,36 +83,40 @@
       </table>
     </div>
 
-    <!-- <div class="wpl-standings">
-       <div class="title-space" style=" border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
-        <div class="match-logo">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Women%27s_Premier_League.svg/800px-Women%27s_Premier_League.svg.png" alt="">
+    <div class="wpl-standings"  style="margin-bottom: 50px;">
+        <div class="title-space" style=" border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+            <div class="match-logo">
+                <img src="https://www.observerbd.com/2023/12/07/ob_1701947882.JPG" alt="">
+            </div>
+            <h2>ICC Mens T20 World Cup 2024</h2>
         </div>
-        <h2>Women's Premier League Standings 2024</h2>
-    </div>
-       <table class="table">
+        <span style="color: #000;">Points table will be updated soon...</span>
+       <table class="table" style="display: none;">
         <thead>
           <tr>
-            <th scope="col">NO.</th>
-            <th scope="col">Teams</th>
+            <th scope="col">No</th>
+            <th scope="col">Team</th>
             <th scope="col">Match</th>
             <th scope="col">Win</th>
             <th scope="col">Lose</th>
-            <th scope="col">Tie</th>
+            <!-- <th scope="col">Tie</th> -->
             <th scope="col">Points</th>
             <th scope="col">Last Five</th>
           </tr>
         </thead>
         <tbody>
          
-            <% wplPoints.forEach((team, index) => { %>
+            <!-- <tr>
+                <p style="color: maroon; font-weight: bold;">The Indian Premier League (IPL) 2024 season is scheduled to commence on March 22, 2024.<p>
+            </tr> -->
+            <% iplPoints.forEach((team, index) => { %>
                 <tr>
                     <th scope="row" class="rw"><%= index+1 %></th>
-                    <td style="font-weight: bold;" class="rw"><%= team.sName %></td>
+                    <td class="rw"><%= team.sName %></td>
                     <td class="rw"><%= team.matches %></td>
                     <td class="rw"><%= team.won %></td>
                     <td class="rw"><%= team.lost %></td>
-                    <td class="rw"><%= team.tie %></td>
+                    <!-- <td class="rw"><%= team.tie %></td> -->
                     <td class="rw"><%= team.pts %></td>
             
                         <td>
@@ -123,16 +127,26 @@
                                     <% } else { %>
                                         <i style="color: green;" class="ri-checkbox-circle-fill"></i>
                                     <% } %>
-                                <% }) %>                           
-                        </td>    
+                                <% }) %>
+                            
+                        </td>
                   </tr>
             <% }) %>
           
      
         </tbody>
       </table>
-    </div> -->
+    </div>
 
 </div>
+<script>
+    var is_iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+if (is_iOS) {
+    document.body.classList.add('ios-device');
+    document.querySelector('.navbar').style.position = 'relative';
+    document.querySelector('.navbar').style.paddingTop = '12vw';
+    document.querySelector('.heading').style.display = 'none';
+}
 
+ </script>
 <%- include('../partials/rep-footer.ejs') %>

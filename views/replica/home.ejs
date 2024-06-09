@@ -139,7 +139,7 @@
                 <% }) %>
 
           <!-- upcoming matches data -->
-          <% filteredFixtureData.slice(0, 2).forEach((match) => { %>
+          <% filteredFixtureData.slice(0, 3).forEach((match) => { %>
             <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
               <div class="live-score">
                 <div class="match-heading" style="border-bottom: 1px solid #00000025; width: 100%; padding: 10px; display: flex; justify-content: center; align-items: center;">
@@ -361,6 +361,7 @@
 
     </div>
   
+    <script src="/javascripts/deviceType.js"></script>
     <script>
        var expertOpinion = document.querySelectorAll("#expertOpinion");
        var container = document.querySelectorAll('.container');

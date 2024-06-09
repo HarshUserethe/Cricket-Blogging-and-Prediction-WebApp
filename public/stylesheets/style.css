@@ -54,7 +54,7 @@ span{
 }
 .blur-page{
   width: 100%;
-  height: 54%;
+  height: 25vw;
   position: absolute;
   top: 0;
   z-index: 1;
@@ -525,7 +525,7 @@ border-radius: 10px;
 .franchise>img{
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 50%;
 }
 .Tbox{
@@ -636,9 +636,10 @@ justify-content: center;
 align-items: end;
 }
 #series{
-  width: 12vw !important;
-  height: 5vw;
+  width: 14vw !important;
+  height: 6vw;
   margin-top: 1vw;
+  object-fit: contain;
 }
 
 .todays-prediction{
@@ -689,7 +690,7 @@ align-items: end;
   display: none;
 }
 .ww{
-  width:  8vw;
+  width:  6vw !important;
   height: 12vw;
   position: absolute;
   margin-left: 10vw;
@@ -697,7 +698,7 @@ align-items: end;
 .ww>img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 .back-icon{
   display: none;
@@ -848,8 +849,74 @@ a{
   height: 18%;
   display: flex;
 }
+.nav-item {
+  position: relative;
+  display: inline-block;
+}
 
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.nav-item:hover .dropdown-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-menu li {
+  display: block;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+}
+
+.nav-link:hover {
+  color: peachpuff !important;
+}
+#cw-rec-button{
+  font-size: 1.5vw;
+  background-color: transparent;
+  padding:7px 25px 7px 25px;
+  border-radius: 10px !important;
+  box-shadow: 1px 1px 1px #0000007a;
+  color: #fff;
+  transition: cubic-bezier(0.19, 1, 0.22, 1) .5s;
+}
+#cw-rec-button:hover{
+border: 1px solid #000 !important;
+color: #000 !important;
+}
+.cw-btn-bunch{
+  display: flex;
+  gap: 10px;
+}
+.match-logo>img{
+width: 100%;
+height: 100%;
+object-fit: cover !important;
+}
 @media only screen and (max-width: 900px) {
+  .ios-device{
+    margin-top: 0vw;
+  }
+  #cw-rec-button{
+    font-size: 4vw;
+    position: relative;
+    z-index: 10;
+    border: none !important;
+    background-color: transparent;
+    padding: 7px 25px 7px 25px;
+    border-radius: 10px !important;
+    box-shadow: 1px 1px 1px #00000069;
+    color: #fff;
+    transition: cubic-bezier(0.19, 1, 0.22, 1) .5s;
+  }
   .bw-head{
     font-size: 4vw !important;
   }
@@ -981,7 +1048,7 @@ a{
   font-size: 2.5vw;
 }
   .live-score{
-    width:  70vw;
+    width:  75vw;
     height: 48vw;
     border-radius: 15px;
     border: 1px solid #0000002f;
@@ -1073,6 +1140,7 @@ a{
 .place {
   font-size: 1.7vw !important;
   color: #000 !important;
+  display: none !important;
 }
 .match-type {
   display: none !important;
